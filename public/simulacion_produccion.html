@@ -381,6 +381,59 @@
             box-shadow: 0 6px 25px rgba(255, 51, 102, 0.4);
         }
         
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, rgba(0, 212, 255, 0.3), rgba(0, 255, 136, 0.3));
+            border-radius: 4px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="range"]:hover {
+            background: linear-gradient(90deg, rgba(0, 212, 255, 0.5), rgba(0, 255, 136, 0.5));
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
+        }
+        
+        input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        input[type="range"]::-moz-range-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
+        }
+        
+        input[type="range"]:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
         .comparison {
             background: var(--bg-card);
             border-radius: 16px;
@@ -500,42 +553,9 @@
         </header>
         
         <div class="simulation-grid">
-            <!-- Simulación SIN Buffer -->
-            <div class="simulation-container">
-                <h2 class="sim-title">❌ Sin Buffer</h2>
-                <p class="sim-description">La Máquina 2 se bloquea cuando la Máquina 1 no tiene piezas listas</p>
-                
-                <div class="production-line" id="line-no-buffer">
-                    <div class="machine" id="machine1-no-buffer">
-                        <div class="machine-label">M1</div>
-                        <div class="machine-status">Produciendo</div>
-                    </div>
-                    <div class="arrow">→</div>
-                    <div class="machine" id="machine2-no-buffer">
-                        <div class="machine-label">M2</div>
-                        <div class="machine-status">Esperando</div>
-                    </div>
-                </div>
-                
-                <div class="stats">
-                    <div class="stat">
-                        <div class="stat-label">Piezas M1</div>
-                        <div class="stat-value" id="pieces-m1-no-buffer">0</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-label">Piezas M2</div>
-                        <div class="stat-value" id="pieces-m2-no-buffer">0</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-label">Bloqueos</div>
-                        <div class="stat-value warning" id="blocks-no-buffer">0</div>
-                    </div>
-                </div>
-            </div>
-            
             <!-- Simulación CON Buffer -->
             <div class="simulation-container">
-                <h2 class="sim-title">✅ Con Buffer</h2>
+                <h2 class="sim-title">✅ Simulación con Buffer</h2>
                 <p class="sim-description">El buffer permite que la Máquina 2 trabaje continuamente sin interrupciones</p>
                 
                 <div class="production-line" id="line-with-buffer">
@@ -570,21 +590,45 @@
                         <div class="stat-value" id="buffer-stat">0</div>
                     </div>
                 </div>
-            </div>
-        </div>
-        
-        <div class="comparison">
-            <h2>📊 Análisis de Eficiencia</h2>
-            <div class="comparison-grid">
-                <div class="comparison-item">
-                    <div class="comparison-label">Sin Buffer - Eficiencia M2</div>
-                    <div class="comparison-value bad" id="efficiency-no-buffer">0%</div>
-                    <div class="comparison-subtext">Tiempo de bloqueo elevado</div>
+                
+                <div style="margin-top: 1.5rem;">
+                    <label style="display: block; text-align: center; margin-bottom: 0.5rem; color: var(--text-secondary); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em;">
+                        Tamaño del Buffer: <span id="buffer-size-display" style="color: var(--accent-yellow); font-weight: 700;">5</span>
+                    </label>
+                    <input type="range" id="buffer-size-slider" min="1" max="15" value="5" 
+                           style="width: 100%; cursor: pointer; height: 8px; background: linear-gradient(90deg, var(--accent-blue), var(--accent-green)); border-radius: 4px;">
                 </div>
-                <div class="comparison-item">
-                    <div class="comparison-label">Con Buffer - Eficiencia M2</div>
-                    <div class="comparison-value good" id="efficiency-with-buffer">0%</div>
-                    <div class="comparison-subtext">Operación continua</div>
+            </div>
+            
+            <!-- Gráfica de Eficiencia -->
+            <div class="simulation-container">
+                <h2 class="sim-title">📊 Búsqueda del Óptimo</h2>
+                <p class="sim-description">La eficiencia (Ω) se calcula probando diferentes tamaños de buffer</p>
+                
+                <div style="position: relative; height: 300px; margin: 2rem 0;">
+                    <canvas id="efficiency-chart" width="400" height="300"></canvas>
+                </div>
+                
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-label">Tamaño Actual</div>
+                        <div class="stat-value" id="current-buffer-size">5</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Eficiencia</div>
+                        <div class="stat-value" id="current-efficiency">0%</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Óptimo</div>
+                        <div class="stat-value" style="color: var(--accent-yellow);" id="optimal-size">8</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 1rem; padding: 1rem; background: rgba(0, 0, 0, 0.3); border-radius: 8px; border: 1px solid rgba(255, 215, 0, 0.3);">
+                    <p id="optimization-status" style="font-size: 0.85rem; color: var(--text-secondary); text-align: center; line-height: 1.6;">
+                        <span style="color: var(--accent-blue); font-weight: 700;">▶ Presiona Iniciar</span> 
+                        para comenzar la búsqueda automática del tamaño óptimo de buffer
+                    </p>
                 </div>
             </div>
         </div>
@@ -597,32 +641,34 @@
     </div>
     
     <script>
-        // Estado de las simulaciones
+        // Estado de la simulación
         const state = {
-            noBuffer: {
-                m1Pieces: 0,
-                m2Pieces: 0,
-                blocks: 0,
-                m1Working: false,
-                m2Working: false,
-                m2WorkTime: 0,
-                m2BlockTime: 0,
-                pieceReady: false
-            },
             withBuffer: {
                 m1Pieces: 0,
                 m2Pieces: 0,
                 buffer: 0,
                 m1Working: false,
                 m2Working: false,
-                m2WorkTime: 0
+                m2WorkTime: 0,
+                m2IdleTime: 0
             },
             running: false,
-            totalTime: 0
+            totalTime: 0,
+            maxBufferSize: 5,
+            // Datos de optimización progresiva
+            optimization: {
+                isRunning: false,
+                currentTestSize: 1,
+                dataPoints: [], // [{bufferSize, efficiency}]
+                testDuration: 5000, // ms para probar cada tamaño (5 segundos)
+                testStartTime: 0,
+                minSize: 1,
+                maxSize: 15
+            }
         };
         
-        const PRODUCTION_TIME = 10000; // 10 segundos
-        const MAX_BUFFER = 8;
+        const PRODUCTION_TIME = 1500; // 1.5 segundos para hacer más rápida la simulación
+        const OPTIMAL_BUFFER = 8;
         
         let intervals = [];
         
@@ -630,14 +676,8 @@
         const startBtn = document.getElementById('start-btn');
         const stopBtn = document.getElementById('stop-btn');
         const resetBtn = document.getElementById('reset-btn');
-        
-        // Sin buffer
-        const machine1NoBuffer = document.getElementById('machine1-no-buffer');
-        const machine2NoBuffer = document.getElementById('machine2-no-buffer');
-        const piecesM1NoBuffer = document.getElementById('pieces-m1-no-buffer');
-        const piecesM2NoBuffer = document.getElementById('pieces-m2-no-buffer');
-        const blocksNoBuffer = document.getElementById('blocks-no-buffer');
-        const efficiencyNoBuffer = document.getElementById('efficiency-no-buffer');
+        const bufferSizeSlider = document.getElementById('buffer-size-slider');
+        const bufferSizeDisplay = document.getElementById('buffer-size-display');
         
         // Con buffer
         const machine1WithBuffer = document.getElementById('machine1-with-buffer');
@@ -647,30 +687,252 @@
         const bufferCount = document.getElementById('buffer-count');
         const bufferStat = document.getElementById('buffer-stat');
         const bufferItems = document.getElementById('buffer-items');
-        const efficiencyWithBuffer = document.getElementById('efficiency-with-buffer');
+        
+        // Gráfica
+        const canvas = document.getElementById('efficiency-chart');
+        const ctx = canvas.getContext('2d');
+        const currentBufferSizeEl = document.getElementById('current-buffer-size');
+        const currentEfficiencyEl = document.getElementById('current-efficiency');
+        const optimalSizeEl = document.getElementById('optimal-size');
+        const optimizationStatusEl = document.getElementById('optimization-status');
+        
+        // Función para calcular eficiencia teórica basada en tamaño del buffer
+        function calculateTheoreticalEfficiency(bufferSize) {
+            // Modelo simplificado: eficiencia aumenta con el buffer hasta un punto óptimo
+            // Después del óptimo, el beneficio es marginal
+            const baseEfficiency = 45; // Eficiencia base sin buffer
+            const optimalEfficiency = 95; // Eficiencia máxima en el punto óptimo
+            
+            if (bufferSize <= 0) return baseEfficiency;
+            if (bufferSize >= OPTIMAL_BUFFER) {
+                // Después del óptimo, crece muy lentamente
+                const excess = bufferSize - OPTIMAL_BUFFER;
+                return Math.min(98, optimalEfficiency + excess * 0.3);
+            }
+            
+            // Curva logarítmica hasta el óptimo
+            const factor = bufferSize / OPTIMAL_BUFFER;
+            return baseEfficiency + (optimalEfficiency - baseEfficiency) * Math.pow(factor, 0.5);
+        }
+        
+        // Dibujar gráfica de eficiencia con datos en tiempo real
+        function drawEfficiencyChart() {
+            const width = canvas.width;
+            const height = canvas.height;
+            const padding = 40;
+            const graphWidth = width - 2 * padding;
+            const graphHeight = height - 2 * padding;
+            
+            // Limpiar canvas
+            ctx.fillStyle = '#0a0e27';
+            ctx.fillRect(0, 0, width, height);
+            
+            // Dibujar grid
+            ctx.strokeStyle = 'rgba(0, 212, 255, 0.1)';
+            ctx.lineWidth = 1;
+            
+            for (let i = 0; i <= 10; i++) {
+                const y = padding + (graphHeight * i / 10);
+                ctx.beginPath();
+                ctx.moveTo(padding, y);
+                ctx.lineTo(width - padding, y);
+                ctx.stroke();
+            }
+            
+            for (let i = 0; i <= 15; i++) {
+                const x = padding + (graphWidth * i / 15);
+                ctx.beginPath();
+                ctx.moveTo(x, padding);
+                ctx.lineTo(x, height - padding);
+                ctx.stroke();
+            }
+            
+            // Dibujar ejes
+            ctx.strokeStyle = 'rgba(0, 212, 255, 0.5)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding, height - padding);
+            ctx.lineTo(width - padding, height - padding);
+            ctx.stroke();
+            
+            // Labels de los ejes
+            ctx.fillStyle = '#8899bb';
+            ctx.font = '10px "Roboto Mono"';
+            ctx.textAlign = 'center';
+            
+            // Eje X
+            for (let i = 0; i <= 15; i += 3) {
+                const x = padding + (graphWidth * i / 15);
+                ctx.fillText(i.toString(), x, height - padding + 15);
+            }
+            ctx.fillText('Tamaño del Buffer', width / 2, height - 5);
+            
+            // Eje Y - con símbolo omega (Ω)
+            ctx.save();
+            ctx.translate(15, height / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillText('Eficiencia Ω (%)', 0, 0);
+            ctx.restore();
+            
+            for (let i = 0; i <= 100; i += 20) {
+                const y = height - padding - (graphHeight * i / 100);
+                ctx.textAlign = 'right';
+                ctx.fillText(i + '%', padding - 10, y + 3);
+            }
+            
+            // Dibujar línea conectando los puntos de datos recopilados
+            const dataPoints = state.optimization.dataPoints;
+            if (dataPoints.length > 0 || state.optimization.isRunning) {
+                // Si está en progreso, incluir el punto actual temporal
+                let pointsToDraw = [...dataPoints];
+                if (state.optimization.isRunning && state.totalTime > 0) {
+                    const currentEff = calculateRealEfficiency();
+                    pointsToDraw.push({
+                        bufferSize: state.optimization.currentTestSize,
+                        efficiency: currentEff,
+                        temporary: true
+                    });
+                }
+                
+                if (pointsToDraw.length > 0) {
+                    ctx.strokeStyle = '#00ff88';
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    
+                    pointsToDraw.forEach((point, index) => {
+                        if (point.temporary) return; // No conectar el punto temporal
+                        const x = padding + (graphWidth * point.bufferSize / 15);
+                        const y = height - padding - (graphHeight * point.efficiency / 100);
+                        
+                        if (index === 0) {
+                            ctx.moveTo(x, y);
+                        } else {
+                            ctx.lineTo(x, y);
+                        }
+                    });
+                    ctx.stroke();
+                    
+                    // Dibujar puntos individuales
+                    pointsToDraw.forEach((point) => {
+                        const x = padding + (graphWidth * point.bufferSize / 15);
+                        const y = height - padding - (graphHeight * point.efficiency / 100);
+                        
+                        if (point.temporary) {
+                            // Punto temporal (parpadeante)
+                            ctx.fillStyle = 'rgba(0, 212, 255, 0.6)';
+                            ctx.beginPath();
+                            ctx.arc(x, y, 6, 0, Math.PI * 2);
+                            ctx.fill();
+                        } else {
+                            ctx.fillStyle = '#00ff88';
+                            ctx.beginPath();
+                            ctx.arc(x, y, 4, 0, Math.PI * 2);
+                            ctx.fill();
+                        }
+                    });
+                }
+                
+                // Marcar el punto con mayor eficiencia (óptimo encontrado) solo de los puntos confirmados
+                if (dataPoints.length > 0) {
+                    const maxEffPoint = dataPoints.reduce((max, point) => 
+                        point.efficiency > max.efficiency ? point : max, dataPoints[0]);
+                    
+                    if (maxEffPoint) {
+                        const optimalX = padding + (graphWidth * maxEffPoint.bufferSize / 15);
+                        const optimalY = height - padding - (graphHeight * maxEffPoint.efficiency / 100);
+                        
+                        ctx.fillStyle = '#ffd700';
+                        ctx.beginPath();
+                        ctx.arc(optimalX, optimalY, 6, 0, Math.PI * 2);
+                        ctx.fill();
+                        
+                        ctx.strokeStyle = '#ffd700';
+                        ctx.lineWidth = 2;
+                        ctx.setLineDash([5, 5]);
+                        ctx.beginPath();
+                        ctx.moveTo(optimalX, optimalY);
+                        ctx.lineTo(optimalX, height - padding);
+                        ctx.stroke();
+                        ctx.setLineDash([]);
+                        
+                        optimalSizeEl.textContent = maxEffPoint.bufferSize;
+                    }
+                }
+            }
+            
+            // Marcar punto actual siendo probado
+            if (state.optimization.isRunning) {
+                const currentSize = state.optimization.currentTestSize;
+                const currentPoint = dataPoints.find(p => p.bufferSize === currentSize);
+                const currentEff = currentPoint ? currentPoint.efficiency : calculateRealEfficiency();
+                
+                const currentX = padding + (graphWidth * currentSize / 15);
+                const currentY = height - padding - (graphHeight * currentEff / 100);
+                
+                ctx.fillStyle = '#00d4ff';
+                ctx.beginPath();
+                ctx.arc(currentX, currentY, 8, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.strokeStyle = '#00d4ff';
+                ctx.lineWidth = 2;
+                ctx.setLineDash([5, 5]);
+                ctx.beginPath();
+                ctx.moveTo(currentX, currentY);
+                ctx.lineTo(currentX, height - padding);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                
+                currentBufferSizeEl.textContent = currentSize;
+                currentEfficiencyEl.textContent = Math.round(currentEff) + '%';
+                
+                // Colorear según eficiencia
+                if (currentEff >= 90) {
+                    currentEfficiencyEl.style.color = 'var(--accent-green)';
+                } else if (currentEff >= 70) {
+                    currentEfficiencyEl.style.color = 'var(--accent-yellow)';
+                } else {
+                    currentEfficiencyEl.style.color = 'var(--accent-red)';
+                }
+                
+                // Actualizar mensaje de estado
+                optimizationStatusEl.innerHTML = `
+                    <span style="color: var(--accent-blue); font-weight: 700;">🔄 Probando buffer de tamaño ${currentSize}</span>
+                    (${currentSize} de ${state.optimization.maxSize})
+                `;
+            } else if (dataPoints.length > 0) {
+                // Optimización completada
+                const maxEffPoint = dataPoints.reduce((max, point) => 
+                    point.efficiency > max.efficiency ? point : max, dataPoints[0]);
+                
+                currentBufferSizeEl.textContent = maxEffPoint.bufferSize;
+                currentEfficiencyEl.textContent = Math.round(maxEffPoint.efficiency) + '%';
+                currentEfficiencyEl.style.color = 'var(--accent-green)';
+                
+                optimizationStatusEl.innerHTML = `
+                    <span style="color: var(--accent-yellow); font-weight: 700;">💡 Punto Óptimo:</span> 
+                    El buffer de tamaño <span style="color: var(--accent-yellow); font-weight: 700;">${maxEffPoint.bufferSize}</span> maximiza la eficiencia (${Math.round(maxEffPoint.efficiency)}%).
+                    Más allá de este punto, el beneficio es marginal.
+                `;
+            } else {
+                currentBufferSizeEl.textContent = state.maxBufferSize;
+                currentEfficiencyEl.textContent = '0%';
+                
+                optimizationStatusEl.innerHTML = `
+                    <span style="color: var(--accent-blue); font-weight: 700;">▶ Presiona Iniciar</span> 
+                    para comenzar la búsqueda automática del tamaño óptimo de buffer
+                `;
+            }
+        }
         
         // Funciones auxiliares
         function updateUI() {
-            // Sin buffer
-            piecesM1NoBuffer.textContent = state.noBuffer.m1Pieces;
-            piecesM2NoBuffer.textContent = state.noBuffer.m2Pieces;
-            blocksNoBuffer.textContent = state.noBuffer.blocks;
-            
-            const effNoBuffer = state.totalTime > 0 
-                ? Math.round((state.noBuffer.m2WorkTime / state.totalTime) * 100)
-                : 0;
-            efficiencyNoBuffer.textContent = effNoBuffer + '%';
-            
             // Con buffer
             piecesM1WithBuffer.textContent = state.withBuffer.m1Pieces;
             piecesM2WithBuffer.textContent = state.withBuffer.m2Pieces;
             bufferCount.textContent = state.withBuffer.buffer;
             bufferStat.textContent = state.withBuffer.buffer;
-            
-            const effWithBuffer = state.totalTime > 0 
-                ? Math.round((state.withBuffer.m2WorkTime / state.totalTime) * 100)
-                : 0;
-            efficiencyWithBuffer.textContent = effWithBuffer + '%';
             
             // Actualizar visualización del buffer
             updateBufferVisual();
@@ -697,62 +959,13 @@
             }
         }
         
-        // Simulación SIN buffer
-        function startNoBufferSimulation() {
-            // Máquina 1 produce cada 10 segundos
-            const m1Interval = setInterval(() => {
-                if (!state.running) return;
-                
-                state.noBuffer.m1Working = true;
-                updateMachineStatus(machine1NoBuffer, 'Produciendo...', true);
-                
-                setTimeout(() => {
-                    if (!state.running) return;
-                    
-                    state.noBuffer.m1Pieces++;
-                    state.noBuffer.pieceReady = true;
-                    state.noBuffer.m1Working = false;
-                    updateMachineStatus(machine1NoBuffer, 'Esperando', false);
-                    updateUI();
-                }, PRODUCTION_TIME);
-            }, PRODUCTION_TIME);
-            
-            // Máquina 2 intenta consumir
-            const m2Interval = setInterval(() => {
-                if (!state.running) return;
-                
-                if (state.noBuffer.pieceReady) {
-                    state.noBuffer.m2Working = true;
-                    state.noBuffer.pieceReady = false;
-                    updateMachineStatus(machine2NoBuffer, 'Procesando...', true);
-                    
-                    setTimeout(() => {
-                        if (!state.running) return;
-                        
-                        state.noBuffer.m2Pieces++;
-                        state.noBuffer.m2Working = false;
-                        updateMachineStatus(machine2NoBuffer, 'Esperando', false);
-                        updateUI();
-                    }, PRODUCTION_TIME);
-                } else {
-                    if (!state.noBuffer.m2Working) {
-                        state.noBuffer.blocks++;
-                        updateMachineStatus(machine2NoBuffer, 'Bloqueada', false);
-                        updateUI();
-                    }
-                }
-            }, 1000);
-            
-            intervals.push(m1Interval, m2Interval);
-        }
-        
         // Simulación CON buffer
-        function startWithBufferSimulation() {
+        function startBufferSimulation() {
             // Máquina 1 produce y llena el buffer
             const m1Interval = setInterval(() => {
                 if (!state.running) return;
                 
-                if (state.withBuffer.buffer < MAX_BUFFER) {
+                if (state.withBuffer.buffer < state.maxBufferSize) {
                     state.withBuffer.m1Working = true;
                     updateMachineStatus(machine1WithBuffer, 'Produciendo...', true);
                     
@@ -764,9 +977,11 @@
                         state.withBuffer.m1Working = false;
                         updateMachineStatus(machine1WithBuffer, 'Esperando', false);
                         updateUI();
-                    }, PRODUCTION_TIME);
+                    }, PRODUCTION_TIME * 0.8); // M1 es 20% más rápida
+                } else {
+                    updateMachineStatus(machine1WithBuffer, 'Buffer lleno', false);
                 }
-            }, PRODUCTION_TIME);
+            }, PRODUCTION_TIME * 0.8);
             
             // Máquina 2 consume del buffer
             const m2Interval = setInterval(() => {
@@ -786,6 +1001,7 @@
                         updateUI();
                     }, PRODUCTION_TIME);
                 } else {
+                    state.withBuffer.m2Working = false;
                     updateMachineStatus(machine2WithBuffer, 'Esperando buffer', false);
                 }
                 
@@ -802,16 +1018,11 @@
                 
                 state.totalTime += 100;
                 
-                // Tiempo de trabajo de M2 sin buffer
-                if (state.noBuffer.m2Working) {
-                    state.noBuffer.m2WorkTime += 100;
-                } else if (!state.noBuffer.pieceReady) {
-                    state.noBuffer.m2BlockTime += 100;
-                }
-                
                 // Tiempo de trabajo de M2 con buffer
-                if (state.withBuffer.m2Working || state.withBuffer.buffer > 0) {
+                if (state.withBuffer.m2Working) {
                     state.withBuffer.m2WorkTime += 100;
+                } else {
+                    state.withBuffer.m2IdleTime += 100;
                 }
                 
                 updateUI();
@@ -820,14 +1031,120 @@
             intervals.push(timeInterval);
         }
         
+        // Calcular eficiencia real basada en el rendimiento
+        function calculateRealEfficiency() {
+            const totalTime = state.withBuffer.m2WorkTime + state.withBuffer.m2IdleTime;
+            if (totalTime === 0) return 0;
+            
+            const efficiency = (state.withBuffer.m2WorkTime / totalTime) * 100;
+            return Math.min(100, Math.max(0, efficiency));
+        }
+        
+        // Optimización automática: prueba diferentes tamaños de buffer
+        function startOptimizationProcess() {
+            state.optimization.isRunning = true;
+            state.optimization.currentTestSize = state.optimization.minSize;
+            state.optimization.dataPoints = [];
+            state.optimization.testStartTime = Date.now();
+            
+            // Resetear estado de la simulación para la primera prueba
+            resetSimulationState();
+            state.maxBufferSize = state.optimization.currentTestSize;
+            bufferSizeSlider.value = state.maxBufferSize;
+            bufferSizeDisplay.textContent = state.maxBufferSize;
+            
+            const optimizationInterval = setInterval(() => {
+                if (!state.running || !state.optimization.isRunning) {
+                    clearInterval(optimizationInterval);
+                    return;
+                }
+                
+                const elapsed = Date.now() - state.optimization.testStartTime;
+                
+                // Si ha pasado suficiente tiempo, registrar resultado y pasar al siguiente tamaño
+                if (elapsed >= state.optimization.testDuration) {
+                    const efficiency = calculateRealEfficiency();
+                    
+                    state.optimization.dataPoints.push({
+                        bufferSize: state.optimization.currentTestSize,
+                        efficiency: efficiency
+                    });
+                    
+                    // Actualizar gráfico
+                    drawEfficiencyChart();
+                    
+                    // Pasar al siguiente tamaño de buffer
+                    state.optimization.currentTestSize++;
+                    
+                    if (state.optimization.currentTestSize > state.optimization.maxSize) {
+                        // Terminó la optimización
+                        state.optimization.isRunning = false;
+                        
+                        // Encontrar y establecer el tamaño óptimo
+                        const maxEffPoint = state.optimization.dataPoints.reduce((max, point) => 
+                            point.efficiency > max.efficiency ? point : max, 
+                            state.optimization.dataPoints[0]);
+                        
+                        state.maxBufferSize = maxEffPoint.bufferSize;
+                        bufferSizeSlider.value = state.maxBufferSize;
+                        bufferSizeDisplay.textContent = state.maxBufferSize;
+                        
+                        clearInterval(optimizationInterval);
+                        return;
+                    }
+                    
+                    // Resetear para la siguiente prueba
+                    resetSimulationState();
+                    state.maxBufferSize = state.optimization.currentTestSize;
+                    bufferSizeSlider.value = state.maxBufferSize;
+                    bufferSizeDisplay.textContent = state.maxBufferSize;
+                    state.optimization.testStartTime = Date.now();
+                }
+                
+                // Actualizar gráfico continuamente durante la prueba
+                drawEfficiencyChart();
+            }, 300); // Actualizar cada 300ms para una animación más fluida
+            
+            intervals.push(optimizationInterval);
+        }
+        
+        // Resetear solo el estado de la simulación, mantener optimización
+        function resetSimulationState() {
+            state.withBuffer = {
+                m1Pieces: 0,
+                m2Pieces: 0,
+                buffer: 0,
+                m1Working: false,
+                m2Working: false,
+                m2WorkTime: 0,
+                m2IdleTime: 0
+            };
+            state.totalTime = 0;
+            updateUI();
+        }
+        
         // Event listeners
+        bufferSizeSlider.addEventListener('input', (e) => {
+            const newSize = parseInt(e.target.value);
+            state.maxBufferSize = newSize;
+            bufferSizeDisplay.textContent = newSize;
+            
+            // Si está corriendo, no cambiar pero advertir
+            if (!state.running) {
+                drawEfficiencyChart();
+            }
+        });
+        
         startBtn.addEventListener('click', () => {
             if (state.running) return;
             
             state.running = true;
-            startNoBufferSimulation();
-            startWithBufferSimulation();
+            bufferSizeSlider.disabled = true;
+            bufferSizeSlider.style.opacity = '0.5';
+            
+            startBufferSimulation();
             startTimeTracking();
+            startOptimizationProcess();
             
             startBtn.disabled = true;
             startBtn.style.opacity = '0.5';
@@ -838,6 +1155,8 @@
             intervals.forEach(interval => clearInterval(interval));
             intervals = [];
             
+            bufferSizeSlider.disabled = false;
+            bufferSizeSlider.style.opacity = '1';
             startBtn.disabled = false;
             startBtn.style.opacity = '1';
         });
@@ -848,41 +1167,44 @@
             intervals = [];
             
             // Reiniciar estado
-            state.noBuffer = {
-                m1Pieces: 0,
-                m2Pieces: 0,
-                blocks: 0,
-                m1Working: false,
-                m2Working: false,
-                m2WorkTime: 0,
-                m2BlockTime: 0,
-                pieceReady: false
-            };
-            
             state.withBuffer = {
                 m1Pieces: 0,
                 m2Pieces: 0,
                 buffer: 0,
                 m1Working: false,
                 m2Working: false,
-                m2WorkTime: 0
+                m2WorkTime: 0,
+                m2IdleTime: 0
             };
             
             state.totalTime = 0;
             
-            updateMachineStatus(machine1NoBuffer, 'Esperando', false);
-            updateMachineStatus(machine2NoBuffer, 'Esperando', false);
+            // Reiniciar optimización
+            state.optimization = {
+                isRunning: false,
+                currentTestSize: 1,
+                dataPoints: [],
+                testDuration: 8000,
+                testStartTime: 0,
+                minSize: 1,
+                maxSize: 15
+            };
+            
             updateMachineStatus(machine1WithBuffer, 'Esperando', false);
             updateMachineStatus(machine2WithBuffer, 'Esperando', false);
             
             updateUI();
+            drawEfficiencyChart();
             
+            bufferSizeSlider.disabled = false;
+            bufferSizeSlider.style.opacity = '1';
             startBtn.disabled = false;
             startBtn.style.opacity = '1';
         });
         
         // Inicializar UI
         updateUI();
+        drawEfficiencyChart();
     </script>
 </body>
 </html>

@@ -802,6 +802,94 @@ body {
   color: var(--text-primary);
 }
 
+/* Fixed Header */
+.landing-fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(10, 14, 26, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
+  z-index: 1000;
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.landing-fixed-header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.landing-fixed-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent-teal), var(--accent-lime));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.landing-fixed-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.header-cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: var(--transition);
+  border: 2px solid;
+  white-space: nowrap;
+}
+
+.header-cta-primary {
+  background: var(--accent-teal);
+  color: white;
+  border-color: var(--accent-teal);
+}
+
+.header-cta-primary:hover {
+  background: #0f9f8f;
+  border-color: #0f9f8f;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(20, 184, 166, 0.4);
+}
+
+.header-cta-secondary {
+  background: transparent;
+  color: var(--accent-lime);
+  border-color: var(--accent-lime);
+}
+
+.header-cta-secondary:hover {
+  background: rgba(132, 204, 22, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(132, 204, 22, 0.4);
+}
+
+.landing-header-spacer {
+  height: 80px;
+}
+
 .landing-hero {
   max-width: 1200px;
   margin: 0 auto;
@@ -1257,6 +1345,19 @@ body {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
+
+  .landing-fixed-header {
+    padding: 0.75rem 1.5rem;
+  }
+
+  .landing-fixed-buttons {
+    gap: 0.75rem;
+  }
+
+  .header-cta-button {
+    padding: 0.65rem 1.25rem;
+    font-size: 0.95rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1349,6 +1450,32 @@ body {
   
   .comparison-side h3 {
     font-size: 1.35rem;
+  }
+
+  /* Fixed header mobile adjustments */
+  .landing-fixed-header {
+    padding: 0.65rem 1rem;
+  }
+
+  .landing-fixed-header-content {
+    gap: 1rem;
+  }
+
+  .logo-text {
+    font-size: 1.25rem;
+  }
+
+  .landing-fixed-buttons {
+    gap: 0.5rem;
+  }
+
+  .header-cta-button {
+    padding: 0.6rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .landing-header-spacer {
+    height: 70px;
   }
 }
 

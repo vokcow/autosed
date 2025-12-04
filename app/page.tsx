@@ -5,6 +5,25 @@ import Link from 'next/link';
 export default function LandingPage() {
   return (
     <div className="landing-container">
+      {/* Fixed Header with CTA Buttons */}
+      <div className="landing-fixed-header">
+        <div className="landing-fixed-header-content">
+          <div className="landing-fixed-logo">
+            <span className="logo-text">FlowBuffer</span>
+          </div>
+          <div className="landing-fixed-buttons">
+            <Link href="/simulation" className="header-cta-button header-cta-primary">
+              ▶️ View simulation
+            </Link>
+            <Link href="/simulator" className="header-cta-button header-cta-secondary">
+              🧪 Try it now
+            </Link>
+          </div>
+        </div>
+      </div>
+      
+      {/* Spacer to prevent content from being hidden under fixed header */}
+      <div className="landing-header-spacer"></div>
       <div className="landing-hero">
         <h1 className="landing-title">
           Make Discrete Event Simulation feel simple, powerful, and sustainable

@@ -25,7 +25,7 @@ export default function Home() {
 
     try {
       // Parse user input into simulation parameters
-      const params = parseUserDescriptionToSimulationParams(userInput);
+      const params = await parseUserDescriptionToSimulationParams(userInput);
       
       // Run simulation (mock for now, will call real Simio API later)
       const results = await runSimioSimulation(params);

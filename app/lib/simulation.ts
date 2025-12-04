@@ -1,27 +1,116 @@
 import { SimulationParams, SimulationResults } from '../types';
 
 /**
- * Parse user description into simulation parameters
+ * Parse user description into simulation parameters using LLM
  * 
- * TODO: In production, this function should call an LLM API (e.g., OpenAI GPT-4, Claude)
- * to convert natural language into structured Simio experiment parameters.
+ * Uses OpenRouter API with Amazon Nova 2 Lite to extract simulation parameters
+ * from natural language descriptions.
  * 
- * The LLM should be prompted to extract:
+ * The LLM extracts:
  * - Number of machines in the line
  * - Arrival rates (parts per hour/minute)
- * - Current buffer size (if mentioned)
+ * - Buffer sizes
  * - Shift duration
  * - Target utilization or throughput goals
- * - Any constraints mentioned
- * 
- * For now, this is a lightweight parser that looks for numbers in the text.
+ * - MTBF (Mean Time Between Failures)
+ * - MTTR (Mean Time To Repair)
+ * - Processing hours
  */
-export function parseUserDescriptionToSimulationParams(userText: string): SimulationParams {
+export async function parseUserDescriptionToSimulationParams(userText: string): Promise<SimulationParams> {
+  try {
+    // Para que process.env tenga la API key, debes agregar una línea como esta en tu archivo .env en la raíz del proyecto:
+    // OPENROUTER_API_KEY=tu_api_key_aqui
+    const apiKey = "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";
+    
+    if (!apiKey) {
+      console.warn('OPENROUTER_API_KEY not found, using fallback parsing');
+      return fallbackParse(userText);
+    }
+
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+        'HTTP-Referer': typeof window !== 'undefined' ? window.location.origin : 'https://autosed.app',
+        'X-Title': 'AutoSed Buffer Optimizer'
+      },
+      body: JSON.stringify({
+        model: 'amazon/nova-2-lite-v1:free',
+        messages: [
+          {
+            role: 'system',
+            content: 'Eres un asistente especializado en extraer parámetros de simulación de manufactura. Siempre respondes en formato JSON válido.'
+          },
+          {
+            role: 'user',
+            content: `A partir del texto input genera un JSON con los siguientes parámetros: MTBF (Mean Time Between Failures en horas), MTTR (Mean Time To Repair en horas) y processing hours (horas de procesamiento). También extrae: arrivalRate (piezas por hora), numMachines (número de máquinas), bufferSizeMin, bufferSizeMax, shiftDurationHours, y targetUtilization (entre 0 y 1).
+
+Texto input: "${userText}"
+
+Responde ÚNICAMENTE con un objeto JSON válido con esta estructura:
+{
+  "arrivalRate": number,
+  "numMachines": number,
+  "bufferSizeMin": number,
+  "bufferSizeMax": number,
+  "shiftDurationHours": number,
+  "targetUtilization": number,
+  "mtbf": number,
+  "mttr": number,
+  "processingHours": number
+}
+
+Si algún valor no está especificado en el texto, usa valores por defecto razonables para manufactura.`
+          }
+        ]
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`OpenRouter API error: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log('data', data)
+    const respuesta = data.choices?.[0]?.message?.content || '';
+    console.log('respuesta', respuesta)
+    // Parse JSON response
+    const jsonMatch = respuesta.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) {
+      throw new Error('No valid JSON found in LLM response');
+    }
+    
+    const params = JSON.parse(jsonMatch[0]) as SimulationParams;
+    
+    // Validate and sanitize parameters
+    return {
+      arrivalRate: params.arrivalRate || 120,
+      numMachines: Math.max(1, Math.min(10, params.numMachines || 2)),
+      bufferSizeMin: params.bufferSizeMin || 5,
+      bufferSizeMax: params.bufferSizeMax || 30,
+      shiftDurationHours: params.shiftDurationHours || 8,
+      targetUtilization: Math.max(0, Math.min(1, params.targetUtilization || 0.85)),
+      mtbf: params.mtbf,
+      mttr: params.mttr,
+      processingHours: params.processingHours
+    };
+    
+  } catch (error) {
+    console.error('Error parsing with LLM:', error);
+    return fallbackParse(userText);
+  }
+}
+
+/**
+ * Fallback parser when LLM is not available or fails
+ */
+function fallbackParse(userText: string): SimulationParams {
   // Simple mock parsing - look for numbers in the text
   const numbers = userText.match(/\d+/g)?.map(Number) || [];
   
   return {
-    arrivalRate: numbers[0] || 120, // parts per hour
+    arrivalRate: numbers[0] || 120,
     numMachines: numbers.length > 1 && numbers[1] <= 10 ? numbers[1] : 2,
     bufferSizeMin: 5,
     bufferSizeMax: 30,
@@ -153,3 +242,19 @@ export async function callSimioBackend(simParams: SimulationParams): Promise<Sim
   throw new Error("Not implemented: integrate with Simio backend.");
 }
 
+export async function runJaamSimSimulation(
+  params: SimulationParams
+): Promise<SimulationResults> {
+  const response = await fetch('/api/jaamsim/simulate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(params),
+  });
+
+  if (!response.ok) {
+    throw new Error(`JaamSim backend error: ${response.statusText}`);
+  }
+
+  const data = (await response.json()) as SimulationResults;
+  return data;
+}

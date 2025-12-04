@@ -7,6 +7,9 @@ export interface SimulationParams {
   bufferSizeMax: number;
   shiftDurationHours: number;
   targetUtilization: number;
+  mtbf?: number;              // Mean Time Between Failures (hours)
+  mttr?: number;              // Mean Time To Repair (hours) - note: changed from MTBR to MTTR as it's more standard
+  processingHours?: number;   // Processing hours
 }
 
 export interface BufferResult {

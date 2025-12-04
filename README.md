@@ -28,6 +28,11 @@ This application allows non-expert users to describe their manufacturing system 
 # Install dependencies
 npm install
 
+# Configure environment variables
+# Create a .env.local file in the root directory and add:
+# OPENROUTER_API_KEY=your_api_key_here
+# Get your API key from: https://openrouter.ai/keys
+
 # Run development server
 npm run dev
 
@@ -39,6 +44,10 @@ npm start
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view the app.
+
+### Environment Variables
+
+- `OPENROUTER_API_KEY`: Required for LLM-based parameter extraction using Amazon Nova 2 Lite model via OpenRouter API
 
 ## 🎨 Project Structure
 
@@ -71,10 +80,20 @@ The app is currently running with **mock data** but is prepared for real backend
 See `app/lib/simulation.ts`:
 
 ```typescript
-export async function callLLMBackend(userText: string): Promise<SimulationParams>
+export async function parseUserDescriptionToSimulationParams(userText: string): Promise<SimulationParams>
 ```
 
-**TODO**: Integrate with an LLM API (OpenAI GPT-4, Claude, etc.) to convert natural language descriptions into structured simulation parameters.
+**STATUS**: ✅ **Implemented** - Now uses OpenRouter API with Amazon Nova 2 Lite to convert natural language descriptions into structured simulation parameters including:
+- Arrival rates (parts per hour)
+- Number of machines
+- Buffer sizes (min/max)
+- Shift duration
+- Target utilization
+- MTBF (Mean Time Between Failures)
+- MTTR (Mean Time To Repair)
+- Processing hours
+
+**Requirements**: Set `OPENROUTER_API_KEY` environment variable. Falls back to basic parsing if not available.
 
 ### 2. Simio Integration (Simulation Engine)
 
