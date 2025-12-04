@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 export default function Header() {
   return (
     <header className="header">
@@ -13,10 +15,31 @@ export default function Header() {
             <path d="M24 16 L26 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
           </svg>
         </div>
-        <div>
+        <div style={{ flex: 1 }}>
           <h1 className="header-title">Buffer Optimizer Playground</h1>
           <p className="header-subtitle">Describe your system. We'll simulate it for you.</p>
         </div>
+        <Link 
+          href="/" 
+          style={{
+            color: 'var(--accent-teal)',
+            textDecoration: 'none',
+            fontSize: '0.9rem',
+            fontWeight: 600,
+            padding: '0.5rem 1rem',
+            border: '1px solid var(--accent-teal)',
+            borderRadius: '8px',
+            transition: 'all 0.3s ease',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(20, 184, 166, 0.1)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'transparent';
+          }}
+        >
+          ← Back to Home
+        </Link>
       </div>
     </header>
   );

@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulación de Producción - Buffer Intermedio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto+Mono:wght@300;400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-dark: #0a0e27;
+            --bg-card: #141b3d;
+            --accent-blue: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-red: #ff3366;
+            --accent-yellow: #ffd700;
+            --text-primary: #e8f0ff;
+            --text-secondary: #8899bb;
+            --grid-color: rgba(0, 212, 255, 0.1);
+        }
+        
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 2rem;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.05), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: slideDown 0.8s ease-out;
+        }
+        
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 40px rgba(0, 212, 255, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        
+        .simulation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .simulation-container {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .simulation-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+        }
+        
+        .simulation-container:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 
+                0 15px 50px rgba(0, 212, 255, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+        
+        .sim-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        
+        .sim-description {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .production-line {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin: 2rem 0;
+            min-height: 200px;
+            position: relative;
+        }
+        
+        .machine {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #1a2340, #2a3560);
+            border: 3px solid var(--accent-blue);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 
+                0 5px 20px rgba(0, 212, 255, 0.3),
+                inset 0 2px 4px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .machine.working {
+            border-color: var(--accent-green);
+            box-shadow: 
+                0 5px 30px rgba(0, 255, 136, 0.5),
+                inset 0 2px 4px rgba(255, 255, 255, 0.1);
+            animation: pulse 2s infinite;
+        }
+        
+        .machine.blocked {
+            border-color: var(--accent-red);
+            box-shadow: 
+                0 5px 30px rgba(255, 51, 102, 0.5),
+                inset 0 2px 4px rgba(255, 255, 255, 0.1);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .machine-label {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+        
+        .machine-status {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 0.25rem 0.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+            margin-top: 0.5rem;
+        }
+        
+        .machine.working .machine-status {
+            color: var(--accent-green);
+        }
+        
+        .machine.blocked .machine-status {
+            color: var(--accent-red);
+        }
+        
+        .buffer {
+            width: 100px;
+            min-height: 140px;
+            background: linear-gradient(180deg, #2a1a40, #1a1030);
+            border: 3px solid var(--accent-yellow);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0.5rem;
+            position: relative;
+            box-shadow: 
+                0 5px 20px rgba(255, 215, 0, 0.3),
+                inset 0 2px 4px rgba(255, 255, 255, 0.05);
+        }
+        
+        .buffer-label {
+            position: absolute;
+            top: 0.5rem;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: var(--accent-yellow);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .buffer-count {
+            position: absolute;
+            top: 2rem;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-yellow);
+        }
+        
+        .buffer-items {
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 4px;
+            margin-top: auto;
+            width: 100%;
+        }
+        
+        .buffer-item {
+            width: 100%;
+            height: 12px;
+            background: linear-gradient(90deg, var(--accent-yellow), #ffed4e);
+            border-radius: 2px;
+            animation: stackItem 0.3s ease-out;
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+        }
+        
+        @keyframes stackItem {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .piece {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, var(--accent-green), #00cc77);
+            border-radius: 6px;
+            position: absolute;
+            box-shadow: 0 3px 10px rgba(0, 255, 136, 0.5);
+            animation: movePiece 1s ease-in-out;
+        }
+        
+        @keyframes movePiece {
+            0% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        
+        .arrow {
+            font-size: 2rem;
+            color: var(--accent-blue);
+            animation: arrowPulse 2s infinite;
+        }
+        
+        @keyframes arrowPulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+        
+        .stats {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-green);
+        }
+        
+        .stat-value.warning {
+            color: var(--accent-red);
+        }
+        
+        .controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        button {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            padding: 1rem 2rem;
+            border: 2px solid var(--accent-blue);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 255, 136, 0.1));
+            color: var(--accent-blue);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
+        }
+        
+        button:hover {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(0, 255, 136, 0.2));
+            box-shadow: 0 6px 25px rgba(0, 212, 255, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button.stop {
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+            background: linear-gradient(135deg, rgba(255, 51, 102, 0.1), rgba(255, 51, 102, 0.1));
+        }
+        
+        button.stop:hover {
+            background: linear-gradient(135deg, rgba(255, 51, 102, 0.2), rgba(255, 51, 102, 0.2));
+            box-shadow: 0 6px 25px rgba(255, 51, 102, 0.4);
+        }
+        
+        .comparison {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 2px solid rgba(0, 255, 136, 0.2);
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+        
+        .comparison::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-yellow));
+        }
+        
+        .comparison h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        
+        .comparison-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        
+        .comparison-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .comparison-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+        
+        .comparison-value.good {
+            color: var(--accent-green);
+        }
+        
+        .comparison-value.bad {
+            color: var(--accent-red);
+        }
+        
+        .comparison-subtext {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .simulation-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Simulación de Producción</h1>
+            <p class="subtitle">Análisis de Eficiencia con Buffer Intermedio</p>
+        </header>
+        
+        <div class="simulation-grid">
+            <!-- Simulación SIN Buffer -->
+            <div class="simulation-container">
+                <h2 class="sim-title">❌ Sin Buffer</h2>
+                <p class="sim-description">La Máquina 2 se bloquea cuando la Máquina 1 no tiene piezas listas</p>
+                
+                <div class="production-line" id="line-no-buffer">
+                    <div class="machine" id="machine1-no-buffer">
+                        <div class="machine-label">M1</div>
+                        <div class="machine-status">Produciendo</div>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="machine" id="machine2-no-buffer">
+                        <div class="machine-label">M2</div>
+                        <div class="machine-status">Esperando</div>
+                    </div>
+                </div>
+                
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-label">Piezas M1</div>
+                        <div class="stat-value" id="pieces-m1-no-buffer">0</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Piezas M2</div>
+                        <div class="stat-value" id="pieces-m2-no-buffer">0</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Bloqueos</div>
+                        <div class="stat-value warning" id="blocks-no-buffer">0</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Simulación CON Buffer -->
+            <div class="simulation-container">
+                <h2 class="sim-title">✅ Con Buffer</h2>
+                <p class="sim-description">El buffer permite que la Máquina 2 trabaje continuamente sin interrupciones</p>
+                
+                <div class="production-line" id="line-with-buffer">
+                    <div class="machine" id="machine1-with-buffer">
+                        <div class="machine-label">M1</div>
+                        <div class="machine-status">Produciendo</div>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="buffer">
+                        <div class="buffer-label">BUFFER</div>
+                        <div class="buffer-count" id="buffer-count">0</div>
+                        <div class="buffer-items" id="buffer-items"></div>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="machine" id="machine2-with-buffer">
+                        <div class="machine-label">M2</div>
+                        <div class="machine-status">Produciendo</div>
+                    </div>
+                </div>
+                
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-label">Piezas M1</div>
+                        <div class="stat-value" id="pieces-m1-with-buffer">0</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Piezas M2</div>
+                        <div class="stat-value" id="pieces-m2-with-buffer">0</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">En Buffer</div>
+                        <div class="stat-value" id="buffer-stat">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="comparison">
+            <h2>📊 Análisis de Eficiencia</h2>
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <div class="comparison-label">Sin Buffer - Eficiencia M2</div>
+                    <div class="comparison-value bad" id="efficiency-no-buffer">0%</div>
+                    <div class="comparison-subtext">Tiempo de bloqueo elevado</div>
+                </div>
+                <div class="comparison-item">
+                    <div class="comparison-label">Con Buffer - Eficiencia M2</div>
+                    <div class="comparison-value good" id="efficiency-with-buffer">0%</div>
+                    <div class="comparison-subtext">Operación continua</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button id="start-btn">▶ Iniciar Simulación</button>
+            <button id="stop-btn" class="stop">⏹ Detener</button>
+            <button id="reset-btn">↻ Reiniciar</button>
+        </div>
+    </div>
+    
+    <script>
+        // Estado de las simulaciones
+        const state = {
+            noBuffer: {
+                m1Pieces: 0,
+                m2Pieces: 0,
+                blocks: 0,
+                m1Working: false,
+                m2Working: false,
+                m2WorkTime: 0,
+                m2BlockTime: 0,
+                pieceReady: false
+            },
+            withBuffer: {
+                m1Pieces: 0,
+                m2Pieces: 0,
+                buffer: 0,
+                m1Working: false,
+                m2Working: false,
+                m2WorkTime: 0
+            },
+            running: false,
+            totalTime: 0
+        };
+        
+        const PRODUCTION_TIME = 10000; // 10 segundos
+        const MAX_BUFFER = 8;
+        
+        let intervals = [];
+        
+        // Elementos del DOM
+        const startBtn = document.getElementById('start-btn');
+        const stopBtn = document.getElementById('stop-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        
+        // Sin buffer
+        const machine1NoBuffer = document.getElementById('machine1-no-buffer');
+        const machine2NoBuffer = document.getElementById('machine2-no-buffer');
+        const piecesM1NoBuffer = document.getElementById('pieces-m1-no-buffer');
+        const piecesM2NoBuffer = document.getElementById('pieces-m2-no-buffer');
+        const blocksNoBuffer = document.getElementById('blocks-no-buffer');
+        const efficiencyNoBuffer = document.getElementById('efficiency-no-buffer');
+        
+        // Con buffer
+        const machine1WithBuffer = document.getElementById('machine1-with-buffer');
+        const machine2WithBuffer = document.getElementById('machine2-with-buffer');
+        const piecesM1WithBuffer = document.getElementById('pieces-m1-with-buffer');
+        const piecesM2WithBuffer = document.getElementById('pieces-m2-with-buffer');
+        const bufferCount = document.getElementById('buffer-count');
+        const bufferStat = document.getElementById('buffer-stat');
+        const bufferItems = document.getElementById('buffer-items');
+        const efficiencyWithBuffer = document.getElementById('efficiency-with-buffer');
+        
+        // Funciones auxiliares
+        function updateUI() {
+            // Sin buffer
+            piecesM1NoBuffer.textContent = state.noBuffer.m1Pieces;
+            piecesM2NoBuffer.textContent = state.noBuffer.m2Pieces;
+            blocksNoBuffer.textContent = state.noBuffer.blocks;
+            
+            const effNoBuffer = state.totalTime > 0 
+                ? Math.round((state.noBuffer.m2WorkTime / state.totalTime) * 100)
+                : 0;
+            efficiencyNoBuffer.textContent = effNoBuffer + '%';
+            
+            // Con buffer
+            piecesM1WithBuffer.textContent = state.withBuffer.m1Pieces;
+            piecesM2WithBuffer.textContent = state.withBuffer.m2Pieces;
+            bufferCount.textContent = state.withBuffer.buffer;
+            bufferStat.textContent = state.withBuffer.buffer;
+            
+            const effWithBuffer = state.totalTime > 0 
+                ? Math.round((state.withBuffer.m2WorkTime / state.totalTime) * 100)
+                : 0;
+            efficiencyWithBuffer.textContent = effWithBuffer + '%';
+            
+            // Actualizar visualización del buffer
+            updateBufferVisual();
+        }
+        
+        function updateBufferVisual() {
+            bufferItems.innerHTML = '';
+            for (let i = 0; i < state.withBuffer.buffer; i++) {
+                const item = document.createElement('div');
+                item.className = 'buffer-item';
+                bufferItems.appendChild(item);
+            }
+        }
+        
+        function updateMachineStatus(machine, status, isWorking) {
+            const statusEl = machine.querySelector('.machine-status');
+            statusEl.textContent = status;
+            
+            machine.classList.remove('working', 'blocked');
+            if (isWorking) {
+                machine.classList.add('working');
+            } else if (status === 'Bloqueada') {
+                machine.classList.add('blocked');
+            }
+        }
+        
+        // Simulación SIN buffer
+        function startNoBufferSimulation() {
+            // Máquina 1 produce cada 10 segundos
+            const m1Interval = setInterval(() => {
+                if (!state.running) return;
+                
+                state.noBuffer.m1Working = true;
+                updateMachineStatus(machine1NoBuffer, 'Produciendo...', true);
+                
+                setTimeout(() => {
+                    if (!state.running) return;
+                    
+                    state.noBuffer.m1Pieces++;
+                    state.noBuffer.pieceReady = true;
+                    state.noBuffer.m1Working = false;
+                    updateMachineStatus(machine1NoBuffer, 'Esperando', false);
+                    updateUI();
+                }, PRODUCTION_TIME);
+            }, PRODUCTION_TIME);
+            
+            // Máquina 2 intenta consumir
+            const m2Interval = setInterval(() => {
+                if (!state.running) return;
+                
+                if (state.noBuffer.pieceReady) {
+                    state.noBuffer.m2Working = true;
+                    state.noBuffer.pieceReady = false;
+                    updateMachineStatus(machine2NoBuffer, 'Procesando...', true);
+                    
+                    setTimeout(() => {
+                        if (!state.running) return;
+                        
+                        state.noBuffer.m2Pieces++;
+                        state.noBuffer.m2Working = false;
+                        updateMachineStatus(machine2NoBuffer, 'Esperando', false);
+                        updateUI();
+                    }, PRODUCTION_TIME);
+                } else {
+                    if (!state.noBuffer.m2Working) {
+                        state.noBuffer.blocks++;
+                        updateMachineStatus(machine2NoBuffer, 'Bloqueada', false);
+                        updateUI();
+                    }
+                }
+            }, 1000);
+            
+            intervals.push(m1Interval, m2Interval);
+        }
+        
+        // Simulación CON buffer
+        function startWithBufferSimulation() {
+            // Máquina 1 produce y llena el buffer
+            const m1Interval = setInterval(() => {
+                if (!state.running) return;
+                
+                if (state.withBuffer.buffer < MAX_BUFFER) {
+                    state.withBuffer.m1Working = true;
+                    updateMachineStatus(machine1WithBuffer, 'Produciendo...', true);
+                    
+                    setTimeout(() => {
+                        if (!state.running) return;
+                        
+                        state.withBuffer.m1Pieces++;
+                        state.withBuffer.buffer++;
+                        state.withBuffer.m1Working = false;
+                        updateMachineStatus(machine1WithBuffer, 'Esperando', false);
+                        updateUI();
+                    }, PRODUCTION_TIME);
+                }
+            }, PRODUCTION_TIME);
+            
+            // Máquina 2 consume del buffer
+            const m2Interval = setInterval(() => {
+                if (!state.running) return;
+                
+                if (state.withBuffer.buffer > 0) {
+                    state.withBuffer.m2Working = true;
+                    updateMachineStatus(machine2WithBuffer, 'Procesando...', true);
+                    state.withBuffer.buffer--;
+                    
+                    setTimeout(() => {
+                        if (!state.running) return;
+                        
+                        state.withBuffer.m2Pieces++;
+                        state.withBuffer.m2Working = false;
+                        updateMachineStatus(machine2WithBuffer, 'Produciendo', true);
+                        updateUI();
+                    }, PRODUCTION_TIME);
+                } else {
+                    updateMachineStatus(machine2WithBuffer, 'Esperando buffer', false);
+                }
+                
+                updateUI();
+            }, PRODUCTION_TIME);
+            
+            intervals.push(m1Interval, m2Interval);
+        }
+        
+        // Control del tiempo y eficiencia
+        function startTimeTracking() {
+            const timeInterval = setInterval(() => {
+                if (!state.running) return;
+                
+                state.totalTime += 100;
+                
+                // Tiempo de trabajo de M2 sin buffer
+                if (state.noBuffer.m2Working) {
+                    state.noBuffer.m2WorkTime += 100;
+                } else if (!state.noBuffer.pieceReady) {
+                    state.noBuffer.m2BlockTime += 100;
+                }
+                
+                // Tiempo de trabajo de M2 con buffer
+                if (state.withBuffer.m2Working || state.withBuffer.buffer > 0) {
+                    state.withBuffer.m2WorkTime += 100;
+                }
+                
+                updateUI();
+            }, 100);
+            
+            intervals.push(timeInterval);
+        }
+        
+        // Event listeners
+        startBtn.addEventListener('click', () => {
+            if (state.running) return;
+            
+            state.running = true;
+            startNoBufferSimulation();
+            startWithBufferSimulation();
+            startTimeTracking();
+            
+            startBtn.disabled = true;
+            startBtn.style.opacity = '0.5';
+        });
+        
+        stopBtn.addEventListener('click', () => {
+            state.running = false;
+            intervals.forEach(interval => clearInterval(interval));
+            intervals = [];
+            
+            startBtn.disabled = false;
+            startBtn.style.opacity = '1';
+        });
+        
+        resetBtn.addEventListener('click', () => {
+            state.running = false;
+            intervals.forEach(interval => clearInterval(interval));
+            intervals = [];
+            
+            // Reiniciar estado
+            state.noBuffer = {
+                m1Pieces: 0,
+                m2Pieces: 0,
+                blocks: 0,
+                m1Working: false,
+                m2Working: false,
+                m2WorkTime: 0,
+                m2BlockTime: 0,
+                pieceReady: false
+            };
+            
+            state.withBuffer = {
+                m1Pieces: 0,
+                m2Pieces: 0,
+                buffer: 0,
+                m1Working: false,
+                m2Working: false,
+                m2WorkTime: 0
+            };
+            
+            state.totalTime = 0;
+            
+            updateMachineStatus(machine1NoBuffer, 'Esperando', false);
+            updateMachineStatus(machine2NoBuffer, 'Esperando', false);
+            updateMachineStatus(machine1WithBuffer, 'Esperando', false);
+            updateMachineStatus(machine2WithBuffer, 'Esperando', false);
+            
+            updateUI();
+            
+            startBtn.disabled = false;
+            startBtn.style.opacity = '1';
+        });
+        
+        // Inicializar UI
+        updateUI();
+    </script>
+</body>
+</html>
