@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
-  distDir: 'out',
+  // Note: Remove 'output: export' for Vercel deployment
+  // Vercel handles Next.js deployments natively without static export
   images: {
     unoptimized: true,
   },
