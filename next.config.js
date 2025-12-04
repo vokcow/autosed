@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // For Vercel deployment: use default Next.js build (not static export)
-  reactStrictMode: true,
+  // Note: Remove 'output: export' for Vercel deployment
+  // Vercel handles Next.js deployments natively without static export
   images: {
     unoptimized: true,
   },
