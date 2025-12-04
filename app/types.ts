@@ -1,15 +1,11 @@
 // Types for the Buffer Optimizer Playground
 
 export interface SimulationParams {
-  arrivalRate: number;        // parts per hour
-  numMachines: number;
-  bufferSizeMin: number;
-  bufferSizeMax: number;
-  shiftDurationHours: number;
-  targetUtilization: number;
-  mtbf?: number;              // Mean Time Between Failures (hours)
-  mttr?: number;              // Mean Time To Repair (hours) - note: changed from MTBR to MTTR as it's more standard
-  processingHours?: number;   // Processing hours
+  MinProcessingTime: number;          // Minimum processing time (in minutes)
+  MaxProcessingTime: number;          // Maximum processing time (in minutes)
+  MeanProcessingTime: number;         // Mean processing time (in minutes)
+  ParentInputBufferCapacity: number;  // Parent input buffer capacity
+  MemberInputBufferCapacity: number;  // Member input buffer capacity
 }
 
 export interface BufferResult {

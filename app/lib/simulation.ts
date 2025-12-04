@@ -1,26 +1,20 @@
 import { SimulationParams, SimulationResults } from '../types';
 
+
+
+
 /**
  * Parse user description into simulation parameters using LLM
  * 
- * Uses OpenRouter API with Amazon Nova 2 Lite to extract simulation parameters
- * from natural language descriptions.
+ * - ParentInputBufferCapacity: Parent input buffer capacity
+ * - MemberInputBufferCapacity: Member input buffer capacity
  * 
- * The LLM extracts:
- * - Number of machines in the line
- * - Arrival rates (parts per hour/minute)
- * - Buffer sizes
- * - Shift duration
- * - Target utilization or throughput goals
- * - MTBF (Mean Time Between Failures)
- * - MTTR (Mean Time To Repair)
- * - Processing hours
  */
 export async function parseUserDescriptionToSimulationParams(userText: string): Promise<SimulationParams> {
   try {
     // Para que process.env tenga la API key, debes agregar una línea como esta en tu archivo .env en la raíz del proyecto:
     // OPENROUTER_API_KEY=tu_api_key_aqui
-    const apiKey = "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";
+    const apiKey = "noKey";
     
     if (!apiKey) {
       console.warn('OPENROUTER_API_KEY not found, using fallback parsing');
@@ -44,24 +38,25 @@ export async function parseUserDescriptionToSimulationParams(userText: string): 
           },
           {
             role: 'user',
-            content: `A partir del texto input genera un JSON con los siguientes parámetros: MTBF (Mean Time Between Failures en horas), MTTR (Mean Time To Repair en horas) y processing hours (horas de procesamiento). También extrae: arrivalRate (piezas por hora), numMachines (número de máquinas), bufferSizeMin, bufferSizeMax, shiftDurationHours, y targetUtilization (entre 0 y 1).
+            content: `A partir del texto input genera un JSON con los siguientes parámetros para simulación de manufactura:
+- MinProcessingTime: tiempo mínimo de procesamiento (en minutos)
+- MaxProcessingTime: tiempo máximo de procesamiento (en minutos)
+- MeanProcessingTime: tiempo promedio de procesamiento (en minutos)
+- ParentInputBufferCapacity: capacidad del buffer de entrada principal
+- MemberInputBufferCapacity: capacidad del buffer de entrada de miembros
 
 Texto input: "${userText}"
 
 Responde ÚNICAMENTE con un objeto JSON válido con esta estructura:
 {
-  "arrivalRate": number,
-  "numMachines": number,
-  "bufferSizeMin": number,
-  "bufferSizeMax": number,
-  "shiftDurationHours": number,
-  "targetUtilization": number,
-  "mtbf": number,
-  "mttr": number,
-  "processingHours": number
+  "MinProcessingTime": number,
+  "MaxProcessingTime": number,
+  "MeanProcessingTime": number,
+  "ParentInputBufferCapacity": number,
+  "MemberInputBufferCapacity": number
 }
 
-Si algún valor no está especificado en el texto, usa valores por defecto razonables para manufactura.`
+Si algún valor no está especificado en el texto, usa valores por defecto razonables para manufactura (por ejemplo: MinProcessingTime: 5, MaxProcessingTime: 15, MeanProcessingTime: 10, ParentInputBufferCapacity: 10, MemberInputBufferCapacity: 5).`
           }
         ]
       })
@@ -81,20 +76,16 @@ Si algún valor no está especificado en el texto, usa valores por defecto razon
       throw new Error('No valid JSON found in LLM response');
     }
     
-    const params = JSON.parse(jsonMatch[0]) as SimulationParams;
+    const params = JSON.parse(jsonMatch[0]) as any;
     
     // Validate and sanitize parameters
     return {
-      arrivalRate: params.arrivalRate || 120,
-      numMachines: Math.max(1, Math.min(10, params.numMachines || 2)),
-      bufferSizeMin: params.bufferSizeMin || 5,
-      bufferSizeMax: params.bufferSizeMax || 30,
-      shiftDurationHours: params.shiftDurationHours || 8,
-      targetUtilization: Math.max(0, Math.min(1, params.targetUtilization || 0.85)),
-      mtbf: params.mtbf,
-      mttr: params.mttr,
-      processingHours: params.processingHours
-    };
+      MinProcessingTime: Math.max(0, params.MinProcessingTime || 5),
+      MaxProcessingTime: Math.max(params.MinProcessingTime || 5, params.MaxProcessingTime || 15),
+      MeanProcessingTime: params.MeanProcessingTime || 10,
+      ParentInputBufferCapacity: Math.max(1, params.ParentInputBufferCapacity || 10),
+      MemberInputBufferCapacity: Math.max(1, params.MemberInputBufferCapacity || 5)
+    } as SimulationParams;
     
   } catch (error) {
     console.error('Error parsing with LLM:', error);
@@ -110,13 +101,12 @@ function fallbackParse(userText: string): SimulationParams {
   const numbers = userText.match(/\d+/g)?.map(Number) || [];
   
   return {
-    arrivalRate: numbers[0] || 120,
-    numMachines: numbers.length > 1 && numbers[1] <= 10 ? numbers[1] : 2,
-    bufferSizeMin: 5,
-    bufferSizeMax: 30,
-    shiftDurationHours: numbers.find(n => n === 8 || n === 12) || 8,
-    targetUtilization: 0.85,
-  };
+    MinProcessingTime: numbers[0] || 5,
+    MaxProcessingTime: numbers[1] || 15,
+    MeanProcessingTime: numbers[2] || 10,
+    ParentInputBufferCapacity: numbers[3] || 10,
+    MemberInputBufferCapacity: numbers[4] || 5
+  } as SimulationParams;
 }
 
 /**
@@ -141,14 +131,18 @@ export async function runSimioSimulation(params: SimulationParams): Promise<Simu
   // Simulate processing delay
   await new Promise(resolve => setTimeout(resolve, 3000));
   
-  // Generate mock results based on parameters
-  const optimalBuffer = Math.floor((params.bufferSizeMin + params.bufferSizeMax) / 2);
-  const baselineThroughput = params.arrivalRate * 0.8;
+  // Generate mock results based on new parameters
+  const optimalBuffer = params.ParentInputBufferCapacity;
+  const cycleTime = params.MeanProcessingTime / 60; // Convert to hours
+  const baselineThroughput = Math.round(60 / cycleTime); // parts per hour
   
   // Generate comparison data for different buffer sizes
   const bufferComparison = [];
-  for (let size = params.bufferSizeMin; size <= params.bufferSizeMax; size += 5) {
-    const efficiency = Math.min(1, 0.6 + (size - params.bufferSizeMin) / (params.bufferSizeMax - params.bufferSizeMin) * 0.4);
+  const minBuffer = Math.max(1, params.MemberInputBufferCapacity);
+  const maxBuffer = Math.max(minBuffer + 20, params.ParentInputBufferCapacity + 10);
+  
+  for (let size = minBuffer; size <= maxBuffer; size += 5) {
+    const efficiency = Math.min(1, 0.6 + (size - minBuffer) / (maxBuffer - minBuffer) * 0.4);
     const throughput = baselineThroughput * efficiency;
     const utilization = 0.7 + efficiency * 0.2;
     
@@ -168,11 +162,11 @@ export async function runSimioSimulation(params: SimulationParams): Promise<Simu
     bufferComparison,
     kpis: {
       averageWIP: Math.round(optimalBuffer * 0.6 * 10) / 10,
-      averageWaitingTime: Math.round(Math.random() * 30 + 10), // seconds
+      averageWaitingTime: Math.round(params.MeanProcessingTime * 2), // seconds
       blockingTime: Math.round(Math.random() * 5 + 2), // percentage
       starvationTime: Math.round(Math.random() * 4 + 1), // percentage
     },
-    explanation: `With a buffer size of ${optimalBuffer} units, the system balances machine utilization and WIP effectively. Using a smaller buffer (${params.bufferSizeMin}) would increase blocking at upstream machines, while larger buffers add WIP with diminishing returns. The current configuration maintains ${Math.round(optimalResult.utilization * 100)}% utilization with optimal flow.`,
+    explanation: `With a buffer size of ${optimalBuffer} units and processing time range of ${params.MinProcessingTime}-${params.MaxProcessingTime} minutes (mean: ${params.MeanProcessingTime} min), the system balances machine utilization and WIP effectively. The parent buffer capacity (${params.ParentInputBufferCapacity}) and member buffer capacity (${params.MemberInputBufferCapacity}) maintain ${Math.round(optimalResult.utilization * 100)}% utilization with optimal flow.`,
   };
 }
 

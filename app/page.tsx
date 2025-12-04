@@ -9,7 +9,7 @@ export default function LandingPage() {
       <div className="landing-fixed-header">
         <div className="landing-fixed-header-content">
           <div className="landing-fixed-logo">
-            <span className="logo-text">FlowBuffer</span>
+            <span className="logo-text">EcoBuffer</span>
           </div>
           <div className="landing-fixed-buttons">
             <Link href="/simulation" className="header-cta-button header-cta-primary">
@@ -125,26 +125,156 @@ export default function LandingPage() {
             {/* Metrics Icons */}
             <g opacity="0.7">
               <text x="120" y="165" textAnchor="middle" fill="#14b8a6" fontSize="24">⚡</text>
-              <text x="120" y="185" textAnchor="middle" fill="#9aa0b0" fontSize="10">Energy</text>
+              <text x="120" y="194" textAnchor="middle" fill="#9aa0b0" fontSize="28">Wasted energy</text>
               
               <text x="310" y="165" textAnchor="middle" fill="#84cc16" fontSize="24">📊</text>
-              <text x="310" y="185" textAnchor="middle" fill="#9aa0b0" fontSize="10">Throughput</text>
+              <text x="310" y="194" textAnchor="middle" fill="#9aa0b0" fontSize="28">Throughput</text>
               
               <text x="500" y="165" textAnchor="middle" fill="#3b82f6" fontSize="24">🌱</text>
-              <text x="500" y="185" textAnchor="middle" fill="#9aa0b0" fontSize="10">CO₂</text>
+              <text x="500" y="194" textAnchor="middle" fill="#9aa0b0" fontSize="28">CO₂</text>
               
               <text x="690" y="165" textAnchor="middle" fill="#f59e0b" fontSize="24">💰</text>
-              <text x="690" y="185" textAnchor="middle" fill="#9aa0b0" fontSize="10">EBITDA</text>
+              <text x="690" y="194" textAnchor="middle" fill="#9aa0b0" fontSize="28">Savings</text>
             </g>
           </svg>
         </div>
         
         <p className="landing-intro">
-          Meet <strong>FlowBuffer</strong>, the first discrete event simulation companion focused on{' '}
+          Meet <strong>EcoBuffer</strong>, the first discrete event simulation companion focused on{' '}
           <strong>buffer optimization</strong>, <strong>energy efficiency</strong>, and{' '}
-          <strong>real EBITDA impact</strong>.
+          <strong>real environmental impact</strong>.
         </p>
       </div>
+
+      <section className="landing-section landing-section-alt">
+        <h2>AI-powered integration with your existing tools</h2>
+        <p className="section-intro">From natural language to simulation results - EcoBuffer bridges the gap</p>
+        
+        <div className="integration-visual">
+          <svg viewBox="0 0 900 280" className="integration-svg">
+            {/* User creating prompt */}
+            <g>
+              <text x="90" y="25" textAnchor="middle" fill="#9aa0b0" fontSize="14" fontWeight="bold">User Input</text>
+              
+              {/* User icon */}
+              <circle cx="90" cy="100" r="35" fill="#1e2535" stroke="#8b5cf6" strokeWidth="3"/>
+              <circle cx="90" cy="90" r="12" fill="#8b5cf6"/>
+              <path d="M 65 115 Q 65 105 90 105 Q 115 105 115 115 L 115 125 Q 115 130 90 130 Q 65 130 65 125 Z" fill="#8b5cf6"/>
+              
+              {/* Prompt bubble */}
+              <rect x="30" y="150" width="120" height="60" fill="#1e2535" stroke="#8b5cf6" strokeWidth="2" rx="8"/>
+              <text x="90" y="172" textAnchor="middle" fill="#c4b5fd" fontSize="11" fontWeight="bold">💬 Natural</text>
+              <text x="90" y="188" textAnchor="middle" fill="#c4b5fd" fontSize="11" fontWeight="bold">Language</text>
+              <text x="90" y="204" textAnchor="middle" fill="#9aa0b0" fontSize="9">"Optimize buffers..."</text>
+            </g>
+            
+            {/* EcoBuffer Core with AI */}
+            <g>
+              <rect x="300" y="60" width="300" height="160" fill="#065f46" stroke="#14b8a6" strokeWidth="4" rx="12"/>
+              
+              <text x="450" y="100" textAnchor="middle" fill="#6ee7b7" fontSize="24" fontWeight="bold">EcoBuffer AI</text>
+              <text x="450" y="125" textAnchor="middle" fill="#9aa0b0" fontSize="13">Buffer Optimization Engine</text>
+              <text x="450" y="145" textAnchor="middle" fill="#14b8a6" fontSize="11">🤖 AI-Powered Analysis</text>
+              <text x="450" y="165" textAnchor="middle" fill="#14b8a6" fontSize="11">⚡ Energy & CO₂ Tracking</text>
+              <text x="450" y="185" textAnchor="middle" fill="#84cc16" fontSize="11">📈 Real-time KPIs</text>
+              <text x="450" y="205" textAnchor="middle" fill="#c4b5fd" fontSize="11">🎯 Smart Recommendations</text>
+            </g>
+            
+            {/* Data Sources & DES Software */}
+            <g>
+              <text x="780" y="25" textAnchor="middle" fill="#9aa0b0" fontSize="14" fontWeight="bold">Data & Simulation</text>
+              
+              {/* Data Sources */}
+              <rect x="710" y="45" width="140" height="35" fill="#1e2535" stroke="#3b82f6" strokeWidth="2" rx="6"/>
+              <text x="780" y="67" textAnchor="middle" fill="#3b82f6" fontSize="11" fontWeight="bold">📄 CSV / SQL / API</text>
+              
+              {/* Arrow to DES */}
+              <path d="M 780 80 L 780 95" stroke="#9aa0b0" strokeWidth="2" strokeDasharray="4"/>
+              
+              {/* DES Software */}
+              <text x="780" y="110" textAnchor="middle" fill="#9aa0b0" fontSize="12" fontWeight="bold">↓ DES Engines</text>
+              
+              <rect x="710" y="120" width="140" height="35" fill="#1e2535" stroke="#f59e0b" strokeWidth="2" rx="6"/>
+              <text x="780" y="142" textAnchor="middle" fill="#f59e0b" fontSize="11" fontWeight="bold">Simio</text>
+              
+              <rect x="710" y="165" width="140" height="35" fill="#1e2535" stroke="#f59e0b" strokeWidth="2" rx="6"/>
+              <text x="780" y="187" textAnchor="middle" fill="#f59e0b" fontSize="11" fontWeight="bold">JaamSim</text>
+              
+              <rect x="710" y="210" width="140" height="35" fill="#1e2535" stroke="#f59e0b" strokeWidth="2" rx="6"/>
+              <text x="780" y="232" textAnchor="middle" fill="#f59e0b" fontSize="11" fontWeight="bold">Simul8 / Witness</text>
+            </g>
+            
+            {/* Arrows */}
+            <defs>
+              <marker id="arrow-purple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="#8b5cf6" />
+              </marker>
+              <marker id="arrow-teal" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="#14b8a6" />
+              </marker>
+              <marker id="arrow-orange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="#f59e0b" />
+              </marker>
+            </defs>
+            
+            {/* User to EcoBuffer */}
+            <path d="M 125 100 L 300 130" stroke="#8b5cf6" strokeWidth="3" markerEnd="url(#arrow-purple)"/>
+            <path d="M 150 180 L 300 160" stroke="#8b5cf6" strokeWidth="3" markerEnd="url(#arrow-purple)"/>
+            
+            {/* EcoBuffer to CSV/SQL/API */}
+            <path d="M 600 100 L 710 62" stroke="#14b8a6" strokeWidth="3" markerEnd="url(#arrow-teal)"/>
+          </svg>
+        </div>
+        
+        <ul className="landing-list">
+          <li>Start with <strong>natural language prompts</strong> - describe your optimization goals in plain text.</li>
+          <li>EcoBuffer's <strong>AI engine</strong> translates your requests into simulation parameters and scenarios.</li>
+          <li>Automatically connects to <strong>Simio, JaamSim, Simul8, Witness</strong> and other DES engines.</li>
+          <li>Pulls real data from CSV, SQL, and APIs to feed accurate simulations.</li>
+        </ul>
+        <p className="landing-highlight">
+          No coding required. Just describe what you want to optimize, and let EcoBuffer handle the complexity.
+        </p>
+      </section>
+
+      <section className="landing-section">
+        <h2>Who is using EcoBuffer?</h2>
+        <div className="landing-testimonials">
+          <div className="testimonial-card">
+            <h3>GreenPress Components</h3>
+            <p className="testimonial-subtitle">Automotive Tier 1 supplier</p>
+            <p className="testimonial-quote">
+              "With EcoBuffer we reduced WIP buffers by 22% while keeping service level above 98%, 
+              freeing capital and stabilizing the line."
+            </p>
+          </div>
+          <div className="testimonial-card">
+            <h3>BlueWave Appliances</h3>
+            <p className="testimonial-subtitle">Consumer goods factory network</p>
+            <p className="testimonial-quote">
+              "Optimizing decoupling buffers across three plants gave us a 9% throughput increase 
+              and a measurable CO₂ reduction per unit."
+            </p>
+          </div>
+          <div className="testimonial-card">
+            <h3>NordicRail Logistics</h3>
+            <p className="testimonial-subtitle">Intermodal transport operator</p>
+            <p className="testimonial-quote">
+              "Scenario testing helped right-size yard buffers and cut unproductive moves, 
+              improving on-time performance and energy use."
+            </p>
+          </div>
+          <div className="testimonial-card">
+            <h3>SunCore Foods</h3>
+            <p className="testimonial-subtitle">Beverage and packaging producer</p>
+            <p className="testimonial-quote">
+              "In less than a month we identified where small buffer changes could save energy without hurting output."
+            </p>
+          </div>
+        </div>
+        <p className="landing-note">*(All client names and quotes above are illustrative.)*</p>
+      </section>
+
 
       <section className="landing-section">
         <h2>Why buffers matter more than you think</h2>
@@ -153,26 +283,62 @@ export default function LandingPage() {
           <div className="comparison-side bad">
             <h3>❌ Poorly Sized Buffer</h3>
             <div className="buffer-diagram">
-              <svg viewBox="0 0 300 150" className="diagram-svg">
-                <rect x="10" y="60" width="60" height="30" fill="#f97316" opacity="0.8" rx="4"/>
-                <text x="40" y="80" textAnchor="middle" fill="#fff" fontSize="12">Machine A</text>
-                
-                <rect x="90" y="50" width="40" height="50" fill="#991b1b" opacity="0.3" rx="4" strokeDasharray="4"/>
-                <text x="110" y="80" textAnchor="middle" fill="#f87171" fontSize="10">Buffer</text>
-                <text x="110" y="95" textAnchor="middle" fill="#f87171" fontSize="10" fontWeight="bold">TOO SMALL</text>
-                
-                <rect x="150" y="60" width="60" height="30" fill="#f97316" opacity="0.4" rx="4"/>
-                <text x="180" y="80" textAnchor="middle" fill="#fff" fontSize="12">Machine B</text>
-                <text x="180" y="100" textAnchor="middle" fill="#fca5a5" fontSize="9">⚠️ Starving</text>
-                
-                <path d="M 70 75 L 90 75" stroke="#f97316" strokeWidth="3" markerEnd="url(#arrowred)"/>
-                <path d="M 130 75 L 150 75" stroke="#f97316" strokeWidth="1" strokeDasharray="3" markerEnd="url(#arrowred)"/>
-                
+              <svg viewBox="0 0 500 280" className="diagram-svg">
                 <defs>
-                  <marker id="arrowred" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-                    <path d="M0,0 L0,6 L9,3 z" fill="#f97316" />
+                  <marker id="arrowred" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto" markerUnits="strokeWidth">
+                    <path d="M0,0 L0,8 L12,4 z" fill="#f97316" />
                   </marker>
+                  <filter id="glow-red">
+                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                    <feMerge>
+                      <feMergeNode in="coloredBlur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
                 </defs>
+                
+                {/* Machine A - Running */}
+                <g>
+                  <rect x="30" y="100" width="110" height="80" fill="#f97316" opacity="0.9" rx="8" stroke="#fb923c" strokeWidth="3"/>
+                  <text x="85" y="135" textAnchor="middle" fill="#fff" fontSize="20" fontWeight="bold">Machine A</text>
+                  <text x="85" y="158" textAnchor="middle" fill="#fff" fontSize="14">Running</text>
+                  <circle cx="60" cy="115" r="6" fill="#22c55e">
+                    <animate attributeName="opacity" values="1;0.3;1" dur="1s" repeatCount="indefinite" />
+                  </circle>
+                </g>
+                
+                {/* Buffer - TOO SMALL */}
+                <g>
+                  <rect x="170" y="80" width="80" height="120" fill="#991b1b" opacity="0.2" rx="8" stroke="#ef4444" strokeWidth="3" strokeDasharray="8,4"/>
+                  <text x="210" y="60" textAnchor="middle" fill="#ef4444" fontSize="16" fontWeight="bold">⚠️ TOO SMALL</text>
+                  
+                  {/* Only 2 small items in buffer */}
+                  <rect x="185" y="150" width="20" height="35" fill="#f87171" rx="3" opacity="0.6"/>
+                  <rect x="225" y="155" width="20" height="30" fill="#f87171" rx="3" opacity="0.6"/>
+                  
+                  <text x="210" y="230" textAnchor="middle" fill="#fca5a5" fontSize="13">Capacity: 2</text>
+                </g>
+                
+                {/* Machine B - STARVING */}
+                <g filter="url(#glow-red)">
+                  <rect x="280" y="100" width="110" height="80" fill="#f97316" opacity="0.3" rx="8" stroke="#dc2626" strokeWidth="3"/>
+                  <text x="335" y="135" textAnchor="middle" fill="#fca5a5" fontSize="20" fontWeight="bold">Machine B</text>
+                  <text x="335" y="158" textAnchor="middle" fill="#ef4444" fontSize="14" fontWeight="bold">⚠️ STARVING</text>
+                  <circle cx="310" cy="115" r="6" fill="#ef4444">
+                    <animate attributeName="opacity" values="1;0.3;1" dur="0.5s" repeatCount="indefinite" />
+                  </circle>
+                </g>
+                
+                {/* Flow arrows */}
+                <path d="M 145 140 L 165 140" stroke="#f97316" strokeWidth="5" markerEnd="url(#arrowred)">
+                  <animate attributeName="opacity" values="1;0.5;1" dur="1.5s" repeatCount="indefinite" />
+                </path>
+                <path d="M 255 140 L 275 140" stroke="#ef4444" strokeWidth="2" strokeDasharray="6,6" markerEnd="url(#arrowred)" opacity="0.5">
+                  <animate attributeName="stroke-dashoffset" from="12" to="0" dur="1s" repeatCount="indefinite" />
+                </path>
+                
+                {/* Warning indicators */}
+                <text x="210" y="260" textAnchor="middle" fill="#ef4444" fontSize="18" fontWeight="bold">⚡ High Energy Waste</text>
               </svg>
             </div>
             <p>↑ Energy waste, stop-go cycles</p>
@@ -181,29 +347,76 @@ export default function LandingPage() {
           <div className="comparison-side good">
             <h3>✅ Optimized Buffer</h3>
             <div className="buffer-diagram">
-              <svg viewBox="0 0 300 150" className="diagram-svg">
-                <rect x="10" y="60" width="60" height="30" fill="#14b8a6" opacity="0.8" rx="4"/>
-                <text x="40" y="80" textAnchor="middle" fill="#fff" fontSize="12">Machine A</text>
-                
-                <rect x="90" y="40" width="60" height="70" fill="#065f46" opacity="0.3" rx="4"/>
-                <rect x="95" y="85" width="10" height="20" fill="#14b8a6" rx="2"/>
-                <rect x="110" y="75" width="10" height="30" fill="#14b8a6" rx="2"/>
-                <rect x="125" y="65" width="10" height="40" fill="#14b8a6" rx="2"/>
-                <rect x="140" y="70" width="10" height="35" fill="#14b8a6" rx="2"/>
-                <text x="120" y="55" textAnchor="middle" fill="#6ee7b7" fontSize="10" fontWeight="bold">RIGHT SIZE</text>
-                
-                <rect x="170" y="60" width="60" height="30" fill="#14b8a6" opacity="0.8" rx="4"/>
-                <text x="200" y="80" textAnchor="middle" fill="#fff" fontSize="12">Machine B</text>
-                <text x="200" y="100" textAnchor="middle" fill="#6ee7b7" fontSize="9">✓ Smooth Flow</text>
-                
-                <path d="M 70 75 L 90 75" stroke="#14b8a6" strokeWidth="3" markerEnd="url(#arrowgreen)"/>
-                <path d="M 150 75 L 170 75" stroke="#14b8a6" strokeWidth="3" markerEnd="url(#arrowgreen)"/>
-                
+              <svg viewBox="0 0 500 280" className="diagram-svg">
                 <defs>
-                  <marker id="arrowgreen" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-                    <path d="M0,0 L0,6 L9,3 z" fill="#14b8a6" />
+                  <marker id="arrowgreen" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto" markerUnits="strokeWidth">
+                    <path d="M0,0 L0,8 L12,4 z" fill="#14b8a6" />
                   </marker>
+                  <filter id="glow-green">
+                    <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                    <feMerge>
+                      <feMergeNode in="coloredBlur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
                 </defs>
+                
+                {/* Machine A - Running */}
+                <g>
+                  <rect x="30" y="100" width="110" height="80" fill="#14b8a6" opacity="0.9" rx="8" stroke="#5eead4" strokeWidth="3"/>
+                  <text x="85" y="135" textAnchor="middle" fill="#fff" fontSize="20" fontWeight="bold">Machine A</text>
+                  <text x="85" y="158" textAnchor="middle" fill="#fff" fontSize="14">Running</text>
+                  <circle cx="60" cy="115" r="6" fill="#22c55e">
+                    <animate attributeName="opacity" values="1;0.3;1" dur="1s" repeatCount="indefinite" />
+                  </circle>
+                </g>
+                
+                {/* Buffer - RIGHT SIZE */}
+                <g filter="url(#glow-green)">
+                  <rect x="170" y="70" width="100" height="140" fill="#065f46" opacity="0.3" rx="8" stroke="#14b8a6" strokeWidth="3"/>
+                  <text x="220" y="55" textAnchor="middle" fill="#6ee7b7" fontSize="16" fontWeight="bold">✓ RIGHT SIZE</text>
+                  
+                  {/* Multiple items showing good capacity */}
+                  <rect x="182" y="145" width="18" height="50" fill="#14b8a6" rx="3" opacity="0.9">
+                    <animate attributeName="height" values="50;55;50" dur="2s" repeatCount="indefinite" />
+                    <animate attributeName="y" values="145;140;145" dur="2s" repeatCount="indefinite" />
+                  </rect>
+                  <rect x="205" y="135" width="18" height="60" fill="#14b8a6" rx="3" opacity="0.9">
+                    <animate attributeName="height" values="60;65;60" dur="2.3s" repeatCount="indefinite" />
+                    <animate attributeName="y" values="135;130;135" dur="2.3s" repeatCount="indefinite" />
+                  </rect>
+                  <rect x="228" y="125" width="18" height="70" fill="#14b8a6" rx="3" opacity="0.9">
+                    <animate attributeName="height" values="70;75;70" dur="1.8s" repeatCount="indefinite" />
+                    <animate attributeName="y" values="125;120;125" dur="1.8s" repeatCount="indefinite" />
+                  </rect>
+                  <rect x="251" y="130" width="18" height="65" fill="#14b8a6" rx="3" opacity="0.9">
+                    <animate attributeName="height" values="65;70;65" dur="2.1s" repeatCount="indefinite" />
+                    <animate attributeName="y" values="130;125;130" dur="2.1s" repeatCount="indefinite" />
+                  </rect>
+                  
+                  <text x="220" y="230" textAnchor="middle" fill="#6ee7b7" fontSize="13">Capacity: 8</text>
+                </g>
+                
+                {/* Machine B - Running smoothly */}
+                <g>
+                  <rect x="300" y="100" width="110" height="80" fill="#14b8a6" opacity="0.9" rx="8" stroke="#5eead4" strokeWidth="3"/>
+                  <text x="355" y="135" textAnchor="middle" fill="#fff" fontSize="20" fontWeight="bold">Machine B</text>
+                  <text x="355" y="158" textAnchor="middle" fill="#fff" fontSize="14">Running</text>
+                  <circle cx="330" cy="115" r="6" fill="#22c55e">
+                    <animate attributeName="opacity" values="1;0.3;1" dur="1s" repeatCount="indefinite" />
+                  </circle>
+                </g>
+                
+                {/* Flow arrows - smooth */}
+                <path d="M 145 140 L 165 140" stroke="#14b8a6" strokeWidth="5" markerEnd="url(#arrowgreen)">
+                  <animate attributeName="opacity" values="0.7;1;0.7" dur="1.5s" repeatCount="indefinite" />
+                </path>
+                <path d="M 275 140 L 295 140" stroke="#14b8a6" strokeWidth="5" markerEnd="url(#arrowgreen)">
+                  <animate attributeName="opacity" values="0.7;1;0.7" dur="1.5s" repeatCount="indefinite" />
+                </path>
+                
+                {/* Success indicator */}
+                <text x="250" y="260" textAnchor="middle" fill="#6ee7b7" fontSize="18" fontWeight="bold">✓ Smooth Flow</text>
               </svg>
             </div>
             <p>↑ Stable utilization, less waste</p>
@@ -216,60 +429,11 @@ export default function LandingPage() {
           <li>Discrete Event Simulation (DES) lets you test dozens of "what‑if" scenarios without touching the real line.</li>
         </ul>
         <p className="landing-highlight">
-          With FlowBuffer, operations teams can finally play with buffers like sliders, not source code.
+          With EcoBuffer, operations teams can finally play with buffers like sliders, not source code.
         </p>
       </section>
 
       <section className="landing-section landing-section-alt">
-        <h2>From complex SED tools to a friendly layer</h2>
-        
-        <div className="transformation-visual">
-          <svg viewBox="0 0 900 200" className="transformation-svg">
-            {/* Traditional tools side */}
-            <g>
-              <rect x="20" y="40" width="250" height="120" fill="#1e2535" stroke="#f97316" strokeWidth="2" rx="8"/>
-              <text x="145" y="30" textAnchor="middle" fill="#f97316" fontSize="16" fontWeight="bold">Traditional DES</text>
-              <text x="145" y="70" textAnchor="middle" fill="#9aa0b0" fontSize="13">&lt;Code/&gt;</text>
-              <text x="145" y="95" textAnchor="middle" fill="#6b7280" fontSize="11">Complex models</text>
-              <text x="145" y="115" textAnchor="middle" fill="#6b7280" fontSize="11">Weeks to configure</text>
-              <text x="145" y="135" textAnchor="middle" fill="#6b7280" fontSize="11">Specialist-only</text>
-            </g>
-            
-            {/* Arrow */}
-            <g>
-              <path d="M 290 100 L 380 100" stroke="#14b8a6" strokeWidth="4" markerEnd="url(#arrow)"/>
-              <text x="335" y="90" textAnchor="middle" fill="#14b8a6" fontSize="14" fontWeight="bold">FlowBuffer</text>
-              <defs>
-                <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="3" orient="auto">
-                  <path d="M0,0 L0,6 L9,3 z" fill="#14b8a6" />
-                </marker>
-              </defs>
-            </g>
-            
-            {/* FlowBuffer side */}
-            <g>
-              <rect x="400" y="20" width="120" height="50" fill="#065f46" stroke="#14b8a6" strokeWidth="2" rx="6"/>
-              <text x="460" y="42" textAnchor="middle" fill="#6ee7b7" fontSize="12">Simple Controls</text>
-              <text x="460" y="58" textAnchor="middle" fill="#9aa0b0" fontSize="10">🎚️ Sliders</text>
-              
-              <rect x="540" y="20" width="120" height="50" fill="#065f46" stroke="#84cc16" strokeWidth="2" rx="6"/>
-              <text x="600" y="42" textAnchor="middle" fill="#bef264" fontSize="12">Visual Dashboard</text>
-              <text x="600" y="58" textAnchor="middle" fill="#9aa0b0" fontSize="10">📊 Charts</text>
-              
-              <rect x="680" y="20" width="120" height="50" fill="#065f46" stroke="#3b82f6" strokeWidth="2" rx="6"/>
-              <text x="740" y="42" textAnchor="middle" fill="#93c5fd" fontSize="12">Clear KPIs</text>
-              <text x="740" y="58" textAnchor="middle" fill="#9aa0b0" fontSize="10">📈 Metrics</text>
-              
-              <rect x="400" y="90" width="180" height="50" fill="#065f46" stroke="#f59e0b" strokeWidth="2" rx="6"/>
-              <text x="490" y="112" textAnchor="middle" fill="#fbbf24" fontSize="12">Energy & CO₂ Built-in</text>
-              <text x="490" y="128" textAnchor="middle" fill="#9aa0b0" fontSize="10">⚡ Sustainability</text>
-              
-              <rect x="600" y="90" width="200" height="50" fill="#065f46" stroke="#14b8a6" strokeWidth="2" rx="6"/>
-              <text x="700" y="112" textAnchor="middle" fill="#6ee7b7" fontSize="12">Results in Minutes</text>
-              <text x="700" y="128" textAnchor="middle" fill="#9aa0b0" fontSize="10">⚡ Fast iteration</text>
-            </g>
-          </svg>
-        </div>
         
         <div className="landing-two-col">
           <div>
@@ -281,7 +445,7 @@ export default function LandingPage() {
             </ul>
           </div>
           <div>
-            <h3>FlowBuffer sits on top of your existing simulation tools and translates complexity into:</h3>
+            <h3>EcoBuffer sits on top of your existing simulation tools and translates complexity into:</h3>
             <ul>
               <li>Simple buffer and policy controls.</li>
               <li>Visual, factory-style dashboards.</li>
@@ -293,7 +457,7 @@ export default function LandingPage() {
 
       <section className="landing-section landing-impact">
         <h2>Tangible impact in weeks, not years</h2>
-        <p className="section-intro">Operations and sustainability teams use FlowBuffer to:</p>
+        <p className="section-intro">Operations and sustainability teams use EcoBuffer to:</p>
         
         <div className="impact-visual">
           <svg viewBox="0 0 800 300" className="impact-chart">
@@ -396,137 +560,10 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="landing-section landing-section-alt">
-        <h2>Works with the tools you already have</h2>
-        <p className="section-intro">FlowBuffer integrates with common DES and data sources</p>
-        
-        <div className="integration-visual">
-          <svg viewBox="0 0 900 280" className="integration-svg">
-            {/* Data Sources */}
-            <g>
-              <text x="100" y="25" textAnchor="middle" fill="#9aa0b0" fontSize="14" fontWeight="bold">Data Sources</text>
-              <rect x="30" y="40" width="70" height="50" fill="#1e2535" stroke="#3b82f6" strokeWidth="2" rx="6"/>
-              <text x="65" y="65" textAnchor="middle" fill="#3b82f6" fontSize="12" fontWeight="bold">CSV</text>
-              <text x="65" y="80" textAnchor="middle" fill="#9aa0b0" fontSize="9">📄 Files</text>
-              
-              <rect x="30" y="100" width="70" height="50" fill="#1e2535" stroke="#3b82f6" strokeWidth="2" rx="6"/>
-              <text x="65" y="125" textAnchor="middle" fill="#3b82f6" fontSize="12" fontWeight="bold">SQL</text>
-              <text x="65" y="140" textAnchor="middle" fill="#9aa0b0" fontSize="9">🗄️ Database</text>
-              
-              <rect x="30" y="160" width="70" height="50" fill="#1e2535" stroke="#3b82f6" strokeWidth="2" rx="6"/>
-              <text x="65" y="185" textAnchor="middle" fill="#3b82f6" fontSize="12" fontWeight="bold">Time Series</text>
-              <text x="65" y="200" textAnchor="middle" fill="#9aa0b0" fontSize="9">📊 Metrics</text>
-            </g>
-            
-            {/* FlowBuffer Core */}
-            <g>
-              <rect x="300" y="80" width="300" height="120" fill="#065f46" stroke="#14b8a6" strokeWidth="4" rx="12"/>
-              <text x="450" y="110" textAnchor="middle" fill="#6ee7b7" fontSize="24" fontWeight="bold">FlowBuffer</text>
-              <text x="450" y="135" textAnchor="middle" fill="#9aa0b0" fontSize="13">Buffer Optimization Engine</text>
-              <text x="450" y="155" textAnchor="middle" fill="#14b8a6" fontSize="11">⚡ Energy & CO₂ Analysis</text>
-              <text x="450" y="175" textAnchor="middle" fill="#84cc16" fontSize="11">📈 Real-time KPIs</text>
-            </g>
-            
-            {/* Simulation Engines */}
-            <g>
-              <text x="790" y="25" textAnchor="middle" fill="#9aa0b0" fontSize="14" fontWeight="bold">Simulation Engines</text>
-              <rect x="730" y="40" width="120" height="40" fill="#1e2535" stroke="#f59e0b" strokeWidth="2" rx="6"/>
-              <text x="790" y="65" textAnchor="middle" fill="#f59e0b" fontSize="12" fontWeight="bold">Simio</text>
-              
-              <rect x="730" y="90" width="120" height="40" fill="#1e2535" stroke="#f59e0b" strokeWidth="2" rx="6"/>
-              <text x="790" y="115" textAnchor="middle" fill="#f59e0b" fontSize="12" fontWeight="bold">JaamSim</text>
-              
-              <rect x="730" y="140" width="120" height="40" fill="#1e2535" stroke="#f59e0b" strokeWidth="2" rx="6"/>
-              <text x="790" y="165" textAnchor="middle" fill="#f59e0b" fontSize="12" fontWeight="bold">Simul8 / Witness</text>
-            </g>
-            
-            {/* Export Tools */}
-            <g>
-              <text x="790" y="215" textAnchor="middle" fill="#9aa0b0" fontSize="14" fontWeight="bold">Export to</text>
-              <rect x="730" y="230" width="120" height="40" fill="#1e2535" stroke="#84cc16" strokeWidth="2" rx="6"/>
-              <text x="790" y="255" textAnchor="middle" fill="#84cc16" fontSize="12" fontWeight="bold">BI Tools</text>
-            </g>
-            
-            {/* Arrows */}
-            <defs>
-              <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                <path d="M0,0 L0,6 L9,3 z" fill="#3b82f6" />
-              </marker>
-              <marker id="arrow-teal" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                <path d="M0,0 L0,6 L9,3 z" fill="#14b8a6" />
-              </marker>
-              <marker id="arrow-orange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                <path d="M0,0 L0,6 L9,3 z" fill="#f59e0b" />
-              </marker>
-              <marker id="arrow-lime" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                <path d="M0,0 L0,6 L9,3 z" fill="#84cc16" />
-              </marker>
-            </defs>
-            
-            <path d="M 110 65 L 300 110" stroke="#3b82f6" strokeWidth="3" markerEnd="url(#arrow-blue)"/>
-            <path d="M 110 125 L 300 140" stroke="#3b82f6" strokeWidth="3" markerEnd="url(#arrow-blue)"/>
-            <path d="M 110 185 L 300 170" stroke="#3b82f6" strokeWidth="3" markerEnd="url(#arrow-blue)"/>
-            
-            <path d="M 600 100 L 730 60" stroke="#f59e0b" strokeWidth="3" markerEnd="url(#arrow-orange)"/>
-            <path d="M 600 140 L 730 110" stroke="#f59e0b" strokeWidth="3" markerEnd="url(#arrow-orange)"/>
-            <path d="M 600 180 L 730 160" stroke="#f59e0b" strokeWidth="3" markerEnd="url(#arrow-orange)"/>
-            
-            <path d="M 600 160 L 730 250" stroke="#84cc16" strokeWidth="3" markerEnd="url(#arrow-lime)"/>
-          </svg>
-        </div>
-        
-        <ul className="landing-list">
-          <li>Compatible with <strong>Simio, JaamSim, Simul8, Witness</strong> and other SED engines through standard APIs.</li>
-          <li>Imports structure, routing, and parameters from your existing models.</li>
-          <li>Connects to CSV, SQL, and time-series data for demand and downtime.</li>
-          <li>Exports results to your BI tools for cross-functional analysis.</li>
-        </ul>
-        <p className="landing-highlight">
-          No need to rebuild your models. Start from what you already trust, then add a smarter buffer layer.
-        </p>
-      </section>
-
-      <section className="landing-section">
-        <h2>Who is using FlowBuffer?</h2>
-        <div className="landing-testimonials">
-          <div className="testimonial-card">
-            <h3>GreenPress Components</h3>
-            <p className="testimonial-subtitle">Automotive Tier 1 supplier</p>
-            <p className="testimonial-quote">
-              "With FlowBuffer we reduced WIP buffers by 22% while keeping service level above 98%, 
-              freeing capital and stabilizing the line."
-            </p>
-          </div>
-          <div className="testimonial-card">
-            <h3>BlueWave Appliances</h3>
-            <p className="testimonial-subtitle">Consumer goods factory network</p>
-            <p className="testimonial-quote">
-              "Optimizing decoupling buffers across three plants gave us a 9% throughput increase 
-              and a measurable CO₂ reduction per unit."
-            </p>
-          </div>
-          <div className="testimonial-card">
-            <h3>NordicRail Logistics</h3>
-            <p className="testimonial-subtitle">Intermodal transport operator</p>
-            <p className="testimonial-quote">
-              "Scenario testing helped right-size yard buffers and cut unproductive moves, 
-              improving on-time performance and energy use."
-            </p>
-          </div>
-          <div className="testimonial-card">
-            <h3>SunCore Foods</h3>
-            <p className="testimonial-subtitle">Beverage and packaging producer</p>
-            <p className="testimonial-quote">
-              "In less than a month we identified where small buffer changes could save energy without hurting output."
-            </p>
-          </div>
-        </div>
-        <p className="landing-note">*(All client names and quotes above are illustrative.)*</p>
-      </section>
 
       <section className="landing-section landing-section-alt">
         <h2>Designed for engineers, friendly for everyone</h2>
-        <p>FlowBuffer is built to feel like modern industrial software:</p>
+        <p>EcoBuffer is built to feel like modern industrial software:</p>
         <ul className="landing-list">
           <li>Dark, workshop-inspired palettes with clear color coding for flow, queues, and bottlenecks.</li>
           <li>Minimal clutter; everything important fits into one main screen.</li>
@@ -534,7 +571,7 @@ export default function LandingPage() {
           <li>Built-in templates for assembly lines, packaging cells, warehouses, and transport hubs.</li>
         </ul>
         <p className="landing-highlight">
-          If you can read a simple process diagram, you can use FlowBuffer.
+          If you can read a simple process diagram, you can use EcoBuffer.
         </p>
       </section>
 
@@ -552,7 +589,7 @@ export default function LandingPage() {
       </section>
 
       <footer className="landing-footer">
-        <p>FlowBuffer • Making Discrete Event Simulation accessible to everyone</p>
+        <p>EcoBuffer • Making Discrete Event Simulation accessible to everyone</p>
       </footer>
     </div>
   );
