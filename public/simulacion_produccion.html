@@ -54,6 +54,7 @@
         .container {
             max-width: 1400px;
             margin: 0 auto;
+            padding-bottom: 2rem;
             position: relative;
             z-index: 1;
         }
@@ -171,7 +172,7 @@
             box-shadow: 
                 0 5px 30px rgba(0, 255, 136, 0.5),
                 inset 0 2px 4px rgba(255, 255, 255, 0.1);
-            animation: pulse 2s infinite;
+            animation: pulse 1s infinite;
         }
         
         .machine.blocked {
@@ -262,7 +263,7 @@
             height: 12px;
             background: linear-gradient(90deg, var(--accent-yellow), #ffed4e);
             border-radius: 2px;
-            animation: stackItem 0.3s ease-out;
+            animation: stackItem 0.2s ease-out;
             box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
         }
         
@@ -284,7 +285,7 @@
             border-radius: 6px;
             position: absolute;
             box-shadow: 0 3px 10px rgba(0, 255, 136, 0.5);
-            animation: movePiece 1s ease-in-out;
+            animation: movePiece 0.6s ease-in-out;
         }
         
         @keyframes movePiece {
@@ -296,7 +297,7 @@
         .arrow {
             font-size: 2rem;
             color: var(--accent-blue);
-            animation: arrowPulse 2s infinite;
+            animation: arrowPulse 1.5s infinite;
         }
         
         @keyframes arrowPulse {
@@ -337,49 +338,6 @@
             color: var(--accent-red);
         }
         
-        .controls {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 2rem;
-        }
-        
-        button {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            padding: 1rem 2rem;
-            border: 2px solid var(--accent-blue);
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 255, 136, 0.1));
-            color: var(--accent-blue);
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
-        }
-        
-        button:hover {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(0, 255, 136, 0.2));
-            box-shadow: 0 6px 25px rgba(0, 212, 255, 0.4);
-            transform: translateY(-2px);
-        }
-        
-        button:active {
-            transform: translateY(0);
-        }
-        
-        button.stop {
-            border-color: var(--accent-red);
-            color: var(--accent-red);
-            background: linear-gradient(135deg, rgba(255, 51, 102, 0.1), rgba(255, 51, 102, 0.1));
-        }
-        
-        button.stop:hover {
-            background: linear-gradient(135deg, rgba(255, 51, 102, 0.2), rgba(255, 51, 102, 0.2));
-            box-shadow: 0 6px 25px rgba(255, 51, 102, 0.4);
-        }
         
         input[type="range"] {
             -webkit-appearance: none;
@@ -542,6 +500,138 @@
             .comparison-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .production-line {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .machine {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .buffer {
+                width: 80px;
+                min-height: 120px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .subtitle {
+                font-size: 0.8rem;
+            }
+            
+            .simulation-container {
+                padding: 1rem;
+            }
+            
+            .sim-title {
+                font-size: 1.2rem;
+            }
+            
+            .sim-description {
+                font-size: 0.75rem;
+            }
+            
+            .production-line {
+                min-height: 150px;
+                gap: 0.5rem;
+            }
+            
+            .machine {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .machine-label {
+                font-size: 0.8rem;
+            }
+            
+            .machine-status {
+                font-size: 0.65rem;
+                padding: 0.2rem 0.3rem;
+            }
+            
+            .buffer {
+                width: 70px;
+                min-height: 100px;
+            }
+            
+            .buffer-label {
+                font-size: 0.7rem;
+            }
+            
+            .buffer-count {
+                font-size: 1.5rem;
+            }
+            
+            .arrow {
+                font-size: 1.5rem;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            
+            .stat-label {
+                font-size: 0.65rem;
+            }
+            
+            .stat-value {
+                font-size: 1.4rem;
+            }
+            
+            canvas {
+                max-width: 100%;
+                height: auto !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.2rem;
+            }
+            
+            .subtitle {
+                font-size: 0.7rem;
+            }
+            
+            .production-line {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .arrow {
+                transform: rotate(90deg);
+            }
+            
+            .machine {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .buffer {
+                width: 60px;
+                min-height: 90px;
+            }
+            
+            .buffer-count {
+                font-size: 1.2rem;
+            }
+            
+            .comparison-value {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
@@ -626,18 +716,13 @@
                 
                 <div style="margin-top: 1rem; padding: 1rem; background: rgba(0, 0, 0, 0.3); border-radius: 8px; border: 1px solid rgba(255, 215, 0, 0.3);">
                     <p id="optimization-status" style="font-size: 0.85rem; color: var(--text-secondary); text-align: center; line-height: 1.6;">
-                        <span style="color: var(--accent-blue); font-weight: 700;">▶ Presiona Iniciar</span> 
-                        para comenzar la búsqueda automática del tamaño óptimo de buffer
+                        <span style="color: var(--accent-blue); font-weight: 700;">⏳ Iniciando</span> 
+                        búsqueda automática del tamaño óptimo de buffer...
                     </p>
                 </div>
             </div>
         </div>
         
-        <div class="controls">
-            <button id="start-btn">▶ Iniciar Simulación</button>
-            <button id="stop-btn" class="stop">⏹ Detener</button>
-            <button id="reset-btn">↻ Reiniciar</button>
-        </div>
     </div>
     
     <script>
@@ -660,22 +745,19 @@
                 isRunning: false,
                 currentTestSize: 1,
                 dataPoints: [], // [{bufferSize, efficiency}]
-                testDuration: 5000, // ms para probar cada tamaño (5 segundos)
+                testDuration: 3000, // ms para probar cada tamaño (3 segundos)
                 testStartTime: 0,
                 minSize: 1,
                 maxSize: 15
             }
         };
         
-        const PRODUCTION_TIME = 1500; // 1.5 segundos para hacer más rápida la simulación
+        const PRODUCTION_TIME = 800; // Velocidad de producción más rápida
         const OPTIMAL_BUFFER = 8;
         
         let intervals = [];
         
         // Elementos del DOM
-        const startBtn = document.getElementById('start-btn');
-        const stopBtn = document.getElementById('stop-btn');
-        const resetBtn = document.getElementById('reset-btn');
         const bufferSizeSlider = document.getElementById('buffer-size-slider');
         const bufferSizeDisplay = document.getElementById('buffer-size-display');
         
@@ -695,6 +777,18 @@
         const currentEfficiencyEl = document.getElementById('current-efficiency');
         const optimalSizeEl = document.getElementById('optimal-size');
         const optimizationStatusEl = document.getElementById('optimization-status');
+        
+        // Hacer el canvas responsivo
+        function resizeCanvas() {
+            const container = canvas.parentElement;
+            const containerWidth = container.clientWidth;
+            canvas.width = Math.min(400, containerWidth - 40);
+            canvas.height = Math.min(300, canvas.width * 0.75);
+            drawEfficiencyChart();
+        }
+        
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
         
         // Función para calcular eficiencia teórica basada en tamaño del buffer
         function calculateTheoreticalEfficiency(bufferSize) {
@@ -920,8 +1014,8 @@
                 currentEfficiencyEl.textContent = '0%';
                 
                 optimizationStatusEl.innerHTML = `
-                    <span style="color: var(--accent-blue); font-weight: 700;">▶ Presiona Iniciar</span> 
-                    para comenzar la búsqueda automática del tamaño óptimo de buffer
+                    <span style="color: var(--accent-blue); font-weight: 700;">⏳ Iniciando</span> 
+                    búsqueda automática del tamaño óptimo de buffer...
                 `;
             }
         }
@@ -1079,6 +1173,11 @@
                     if (state.optimization.currentTestSize > state.optimization.maxSize) {
                         // Terminó la optimización
                         state.optimization.isRunning = false;
+                        state.running = false;
+                        
+                        // Detener todos los intervalos
+                        intervals.forEach(interval => clearInterval(interval));
+                        intervals = [];
                         
                         // Encontrar y establecer el tamaño óptimo
                         const maxEffPoint = state.optimization.dataPoints.reduce((max, point) => 
@@ -1088,6 +1187,12 @@
                         state.maxBufferSize = maxEffPoint.bufferSize;
                         bufferSizeSlider.value = state.maxBufferSize;
                         bufferSizeDisplay.textContent = state.maxBufferSize;
+                        bufferSizeSlider.disabled = false;
+                        bufferSizeSlider.style.opacity = '1';
+                        
+                        // Actualizar estado visual de las máquinas
+                        updateMachineStatus(machine1WithBuffer, 'Completado', false);
+                        updateMachineStatus(machine2WithBuffer, 'Completado', false);
                         
                         clearInterval(optimizationInterval);
                         return;
@@ -1103,7 +1208,7 @@
                 
                 // Actualizar gráfico continuamente durante la prueba
                 drawEfficiencyChart();
-            }, 300); // Actualizar cada 300ms para una animación más fluida
+            }, 200); // Actualizar cada 200ms para una animación más fluida
             
             intervals.push(optimizationInterval);
         }
@@ -1135,7 +1240,8 @@
             }
         });
         
-        startBtn.addEventListener('click', () => {
+        // Función para iniciar la simulación automáticamente
+        function startSimulation() {
             if (state.running) return;
             
             state.running = true;
@@ -1145,66 +1251,16 @@
             startBufferSimulation();
             startTimeTracking();
             startOptimizationProcess();
-            
-            startBtn.disabled = true;
-            startBtn.style.opacity = '0.5';
-        });
+        }
         
-        stopBtn.addEventListener('click', () => {
-            state.running = false;
-            intervals.forEach(interval => clearInterval(interval));
-            intervals = [];
-            
-            bufferSizeSlider.disabled = false;
-            bufferSizeSlider.style.opacity = '1';
-            startBtn.disabled = false;
-            startBtn.style.opacity = '1';
-        });
-        
-        resetBtn.addEventListener('click', () => {
-            state.running = false;
-            intervals.forEach(interval => clearInterval(interval));
-            intervals = [];
-            
-            // Reiniciar estado
-            state.withBuffer = {
-                m1Pieces: 0,
-                m2Pieces: 0,
-                buffer: 0,
-                m1Working: false,
-                m2Working: false,
-                m2WorkTime: 0,
-                m2IdleTime: 0
-            };
-            
-            state.totalTime = 0;
-            
-            // Reiniciar optimización
-            state.optimization = {
-                isRunning: false,
-                currentTestSize: 1,
-                dataPoints: [],
-                testDuration: 8000,
-                testStartTime: 0,
-                minSize: 1,
-                maxSize: 15
-            };
-            
-            updateMachineStatus(machine1WithBuffer, 'Esperando', false);
-            updateMachineStatus(machine2WithBuffer, 'Esperando', false);
-            
-            updateUI();
-            drawEfficiencyChart();
-            
-            bufferSizeSlider.disabled = false;
-            bufferSizeSlider.style.opacity = '1';
-            startBtn.disabled = false;
-            startBtn.style.opacity = '1';
-        });
-        
-        // Inicializar UI
+        // Inicializar UI y arrancar automáticamente
         updateUI();
         drawEfficiencyChart();
+        
+        // Iniciar la simulación automáticamente después de un breve delay
+        setTimeout(() => {
+            startSimulation();
+        }, 500);
     </script>
 </body>
 </html>
