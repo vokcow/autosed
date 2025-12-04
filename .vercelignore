@@ -1,0 +1,10 @@
+# Ignore output directories from previous builds
+out/
+.next/
+
+# Ignore dependencies
+node_modules/
+
+# Ignore environment files
+.env*.local
+
