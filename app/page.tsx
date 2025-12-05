@@ -150,30 +150,31 @@ export default function LandingPage() {
 
         <div className="hero-visual">
           <div className="hero-problem-statement">
-            <h2 className="problem-title">La pregunta clave:</h2>
-            <p className="problem-lead">¿Cuál es el tamaño ÓPTIMO del buffer
-para minimizar CO₂, energía y esperas,
-y maximizar productividad?.</p>
+            <h2 className="problem-title">The key question:</h2>
+            <p className="problem-lead">
+              What is the OPTIMAL buffer size to minimize CO₂, energy, and waiting time,<br />
+              and maximize productivity?
+            </p>
           </div>
         </div>
 
         <div className="hero-visual">
           <div className="hero-problem-statement">
-            <h2 className="problem-title">¿Por qué es importante el tamaño del buffer?</h2>
+            <h2 className="problem-title">Why does buffer size matter?</h2>
             <p className="problem-lead">
-              Imagina una pequeña fábrica de cerveza:<br/>
-              <strong>Máquina 1</strong> llena las botellas de cerveza.<br/>
-              <strong>Máquina 2</strong> pone el tapón a cada botella.<br/>
-              Entre ambas, existe un <strong>buffer</strong>: una bandeja donde se acumulan tapones extra.
+              Imagine a small brewery:<br/>
+              <strong>Machine 1</strong> fills the beer bottles.<br/>
+              <strong>Machine 2</strong> puts a cap on each bottle.<br/>
+              Between them, there’s a <strong>buffer</strong>: a tray where extra caps are stored.
             </p>
             <p className="problem-lead">
-              <strong>¿Qué pasa si el buffer es demasiado pequeño?</strong><br />
-              La máquina de tapones tendrá que parar y esperar, perdiendo productividad.<br/>
-              <strong>¿Y si es muy grande?</strong> <br />
-              Gastamos espacio, energía y materiales innecesarios.
+              <strong>What happens if the buffer is too small?</strong><br />
+              The capping machine will have to stop and wait, losing productivity.<br/>
+              <strong>And if it’s too big?</strong><br />
+              We waste space, energy, and unnecessary materials.
             </p>
             <p className="problem-lead">
-              <em>¡El reto está en encontrar el <strong>tamaño óptimo</strong> del buffer!</em>
+              <em>The challenge is to find the <strong>optimal buffer size</strong>!</em>
             </p>
           </div>
           <svg
@@ -182,21 +183,21 @@ y maximizar productividad?.</p>
             width="100%"
             height="auto"
             style={{ marginTop: "1rem", marginBottom: "1rem" }}
-            aria-label="Ejemplo visual de dos máquinas y un buffer"
+            aria-label="Visual example of two machines and a buffer"
           >
-            {/* Máquina 1: Llenado */}
+            {/* Machine 1: Filling */}
             <rect x="20" y="40" width="100" height="60" rx="14" fill="#60a5fa" />
-            <text x="70" y="62" fill="#fff" fontSize="15" textAnchor="middle" fontWeight="bold">Máquina 1</text>
-            <text x="70" y="83" fill="#dbeafe" fontSize="12" textAnchor="middle">Llenar cerveza</text>
+            <text x="70" y="62" fill="#fff" fontSize="15" textAnchor="middle" fontWeight="bold">Machine 1</text>
+            <text x="70" y="83" fill="#dbeafe" fontSize="12" textAnchor="middle">Fill beer</text>
 
-            {/* Flecha hacia buffer */}
+            {/* Arrow to buffer */}
             <polygon points="125,70 150,70 150,65 165,75 150,85 150,80 125,80" fill="#a7f3d0" />
             <text x="143" y="60" fill="#38bdf8" fontSize="13" textAnchor="middle">↠</text>
             
-            {/* Buffer de Tapones */}
+            {/* Cap Buffer */}
             <rect x="170" y="55" width="80" height="35" rx="8" fill="#fef3c7" stroke="#fde68a" strokeWidth="2" opacity="0.95"/>
             <text x="210" y="77" fill="#ca8a04" fontSize="14" textAnchor="middle" fontWeight="bold">Buffer</text>
-            {/* Tapones en el buffer */}
+            {/* Caps in the buffer */}
             {[0, 1, 2, 3, 4].map(i => (
               <circle
                 key={i}
@@ -206,61 +207,60 @@ y maximizar productividad?.</p>
                 fill="#fbbf24"
                 stroke="#eab308"
                 strokeWidth="1"
-                opacity={i < 4 ? 1 : 0.4} // simula que hay espacio para más tapones
+                opacity={i < 4 ? 1 : 0.4} // simulates extra space for more caps
               />
             ))}
 
-            {/* Flecha hacia máquina 2 */}
+            {/* Arrow to machine 2 */}
             <polygon points="255,70 280,70 280,65 295,75 280,85 280,80 255,80" fill="#a7f3d0" />
             <text x="268" y="60" fill="#38bdf8" fontSize="13" textAnchor="middle">↠</text>
 
-            {/* Máquina 2: Poner tapón */}
+            {/* Machine 2: Capping */}
             <rect x="300" y="40" width="110" height="60" rx="14" fill="#34d399" />
-            <text x="355" y="62" fill="#fff" fontSize="15" textAnchor="middle" fontWeight="bold">Máquina 2</text>
-            <text x="355" y="83" fill="#d1fae5" fontSize="12" textAnchor="middle">Poner tapón</text>
+            <text x="355" y="62" fill="#fff" fontSize="15" textAnchor="middle" fontWeight="bold">Machine 2</text>
+            <text x="355" y="83" fill="#d1fae5" fontSize="12" textAnchor="middle">Put cap</text>
 
-            {/* Botella tapada */}
+            {/* Bottled (capped) */}
             <rect x="440" y="53" width="20" height="34" rx="5" fill="#a3e635" />
             <ellipse cx="450" cy="52" rx="10" ry="7" fill="#fbbf24" stroke="#eab308" strokeWidth="1"/>
-            <text x="450" y="110" fill="#64748b" fontSize="13" textAnchor="middle">¡Listo!</text>
+            <text x="450" y="110" fill="#64748b" fontSize="13" textAnchor="middle">Done!</text>
           </svg>
         </div>
 
 
         <div className="hero-visual">
           <div className="hero-problem-statement">
-            <h2 className="problem-title">Presentamos: EcoBuffer</h2>
-            <p className="problem-lead">El buffer ideal se encuentra con simulaciones hechas con software SED</p>
-            <p className="problem-lead">Gracias a la IA generativa, EcoBuffer facilita su uso y lo hace accesible para todos</p>
-            <p className="problem-lead">Prompt en lenguaje natural</p>
-            <p className="problem-lead">Generación de parámetros y escenarios</p>
-            <p className="problem-lead">Simulación y Optmización</p>
+            <h2 className="problem-title">Introducing: EcoBuffer</h2>
+            <p className="problem-lead">The ideal buffer is found through simulations done with SED software</p>
+            <p className="problem-lead">Thanks to generative AI, EcoBuffer makes it easy to use and accessible for everyone</p>
+            <p className="problem-lead">Natural language prompt</p>
+            <p className="problem-lead">Parameter and scenario generation</p>
+            <p className="problem-lead">Simulation and optimization</p>
           </div>
         </div>
 
         <div className="hero-visual">
           <div className="hero-problem-statement">
-            <h2 className="problem-title">Resultados esperados</h2>
+            <h2 className="problem-title">Expected Outcomes</h2>
             <ul className="problem-list">
-              <li>Reducción drástica de tiempos muertos.</li>
-              <li>Menor consumo de energía.</li>
-              <li>Eliminación de sobreproducción.</li>
-              <li>Disminución de emisiones.</li>
-              <li>Operación más estable y predecible.</li>
+              <li>Drastic reduction in downtime.</li>
+              <li>Lower energy consumption.</li>
+              <li>Elimination of overproduction.</li>
+              <li>Reduction in emissions.</li>
+              <li>More stable and predictable operations.</li>
             </ul>
           </div>
         </div>
 
         <div className="hero-visual">
           <div className="hero-problem-statement">
-            <h2 className="problem-title">Impacto ambiental y económico </h2>
+            <h2 className="problem-title">Environmental and Economic Impact</h2>
             <ul className="problem-list">
-              <li>Alinea la producción con objetivos de sostenibilidad.</li>
-              <li>Menos CO₂ → Menos costes energéticos → Más competitividad.</li>
+              <li>Aligns production with sustainability goals.</li>
+              <li>Less CO₂ → Lower energy costs → Increased competitiveness.</li>
             </ul>
           </div>
         </div>
-
 
         <p className="landing-intro">
           <strong>EcoBuffer</strong>, the first discrete event simulation companion focused on{' '}
