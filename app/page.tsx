@@ -158,24 +158,74 @@ export default function LandingPage() {
 
         <div className="hero-visual">
             <h2 className="problem-title">Why does buffer size matter?</h2>
-            <img
-              src="public/pipeline.png"
-              alt="Visual example of two machines and a buffer"
-              style={{
-                width: "100%",
-                height: "auto",
-                marginTop: "1rem",
-                marginBottom: "1rem",
-                borderRadius: "10px",
-                boxShadow: "0 2px 10px rgba(0,0,0,0.08)"
-              }}
-            />
-            <p className="problem-lead">
-              Imagine a small brewery:<br/>
-              <strong>Machine 1</strong> fills the beer bottles.<br/>
-              <strong>Machine 2</strong> puts a cap on each bottle.<br/>
-              Between them, there’s a <strong>buffer</strong>: a tray where extra caps are stored.
-            </p>
+<svg width="800" height="250" viewBox="0 0 800 250" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="250" fill="#f3f5f7"/>
+
+  {/* Máquina 1 */}
+  <g transform="translate(40,60)">
+    <rect x="0" y="0" width="140" height="110" rx="10" fill="#7AA9B8"/>
+    <rect x="15" y="15" width="50" height="25" rx="4" fill="#426772"/>
+    <rect x="75" y="15" width="40" height="55" rx="4" fill="#e7f0f2"/>
+    <rect x="20" y="70" width="100" height="20" rx="4" fill="#5f8994"/>
+      {/* base */}
+    <rect x="10" y="95" width="120" height="10" fill="#4d707a"/>
+  </g>
+
+  {/* Flecha 1 */}
+  <g stroke="#333" strokeWidth="2" fill="none">
+    <line x1="190" y1="115" x2="240" y2="115"/>
+    <polygon points="240,115 232,110 232,120" fill="#333"/>
+  </g>
+
+  {/* Buffer */}
+  <g transform="translate(250,85)">
+    <rect x="0" y="0" width="160" height="60" rx="8" fill="#4b555b"/>
+    <circle cx="30" cy="30" r="16" fill="#111"/>
+    <circle cx="70" cy="30" r="16" fill="#111"/>
+    <circle cx="110" cy="30" r="16" fill="#111"/>
+    <circle cx="150" cy="30" r="16" fill="#111"/>
+    <text x="80" y="-8" textAnchor="middle" fontFamily="Arial, sans-serif"
+          fontSize="18" fill="#111" fontWeight="bold">Buffer</text>
+  </g>
+
+  {/* Flecha 2 */}
+  <g stroke="#333" strokeWidth="2" fill="none">
+    <line x1="410" y1="115" x2="460" y2="115"/>
+    <polygon points="460,115 452,110 452,120" fill="#333"/>
+  </g>
+
+  {/* Máquina 2 */}
+  <g transform="translate(470,55)">
+    <rect x="0" y="0" width="170" height="120" rx="10" fill="#7AA9B8"/>
+    <rect x="15" y="20" width="60" height="30" rx="4" fill="#e7f0f2"/>
+    <rect x="85" y="20" width="60" height="40" rx="4" fill="#426772"/>
+    <rect x="20" y="70" width="120" height="22" rx="4" fill="#5f8994"/>
+    {/* base */}
+    <rect x="10" y="100" width="150" height="10" fill="#4d707a"/>
+  </g>
+
+  {/* Flecha 3 */}
+  <g stroke="#333" strokeWidth="2" fill="none">
+    <line x1="640" y1="115" x2="690" y2="115"/>
+    <polygon points="690,115 682,110 682,120" fill="#333"/>
+  </g>
+
+  {/* Done */}
+  <g transform="translate(700,70)">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="50%" r="60%">
+        <stop offset="0%" stopColor="#dff7df" stopOpacity="1"/>
+        <stop offset="100%" stopColor="#b1e5b1" stopOpacity="0.1"/>
+      </radialGradient>
+    </defs>
+    <circle cx="30" cy="55" r="55" fill="url(#glow)" />
+    <circle cx="30" cy="55" r="35" fill="#e8f9e8"/>
+    {/* check */}
+    <path d="M18 58 L27 67 L44 45" fill="none" stroke="#3cab3c" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round"/>
+    <text x="30" y="20" textAnchor="middle" fontFamily="Arial, sans-serif"
+          fontSize="18" fill="#2f7b2f" fontWeight="bold">Done</text>
+  </g>
+</svg>            
             <p className="problem-lead">
               <strong>What happens if the buffer is too small?</strong><br />
               The capping machine will have to stop and wait, losing productivity.<br/>
