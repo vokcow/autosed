@@ -14,8 +14,8 @@ export default function ResultsDashboard({ results }: ResultsDashboardProps) {
       <div className="results-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h2>Simulation Results</h2>
         <a 
-          href="/template.xml" 
-          download="template.xml"
+          href="/result.xml" 
+          download="result.xml"
           style={{
             display: 'inline-flex',
             alignItems: 'center',
@@ -41,7 +41,7 @@ export default function ResultsDashboard({ results }: ResultsDashboardProps) {
             <path d="M8 2 L8 10 M4 8 L8 12 L12 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             <path d="M2 14 L14 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
           </svg>
-          Download Template
+          Download Results
         </a>
       </div>
 
