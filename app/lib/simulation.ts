@@ -131,10 +131,14 @@ export async function runSimioSimulation(params: SimulationParams): Promise<Simu
   // Simulate processing delay
   await new Promise(resolve => setTimeout(resolve, 3000));
   
-  // Generate mock results based on new parameters
+  // Generate mock results based on new parameters with random variation
   const optimalBuffer = params.ParentInputBufferCapacity;
   const cycleTime = params.MeanProcessingTime / 60; // Convert to hours
   const baselineThroughput = Math.round(60 / cycleTime); // parts per hour
+  
+  // Add random variation to base throughput (±10%)
+  const throughputVariation = 0.9 + Math.random() * 0.2;
+  const adjustedBaselineThroughput = baselineThroughput * throughputVariation;
   
   // Generate comparison data for different buffer sizes
   const bufferComparison = [];
@@ -142,9 +146,16 @@ export async function runSimioSimulation(params: SimulationParams): Promise<Simu
   const maxBuffer = Math.max(minBuffer + 20, params.ParentInputBufferCapacity + 10);
   
   for (let size = minBuffer; size <= maxBuffer; size += 5) {
-    const efficiency = Math.min(1, 0.6 + (size - minBuffer) / (maxBuffer - minBuffer) * 0.4);
-    const throughput = baselineThroughput * efficiency;
-    const utilization = 0.7 + efficiency * 0.2;
+    // Add random variation to efficiency (±5%)
+    const efficiencyVariation = 0.95 + Math.random() * 0.1;
+    const baseEfficiency = Math.min(1, 0.6 + (size - minBuffer) / (maxBuffer - minBuffer) * 0.4);
+    const efficiency = Math.min(1, baseEfficiency * efficiencyVariation);
+    
+    const throughput = adjustedBaselineThroughput * efficiency;
+    
+    // Add random variation to utilization (±3%)
+    const utilizationVariation = 0.97 + Math.random() * 0.06;
+    const utilization = Math.min(0.99, (0.7 + efficiency * 0.2) * utilizationVariation);
     
     bufferComparison.push({
       bufferSize: size,
@@ -155,16 +166,20 @@ export async function runSimioSimulation(params: SimulationParams): Promise<Simu
   
   const optimalResult = bufferComparison.find(b => b.bufferSize === optimalBuffer) || bufferComparison[Math.floor(bufferComparison.length / 2)];
   
+  // Add random variation to KPIs
+  const wipVariation = 0.85 + Math.random() * 0.3; // ±15%
+  const waitingTimeVariation = 0.8 + Math.random() * 0.4; // ±20%
+  
   return {
     optimalBufferSize: optimalBuffer,
     estimatedThroughput: optimalResult.throughput,
     averageUtilization: optimalResult.utilization,
     bufferComparison,
     kpis: {
-      averageWIP: Math.round(optimalBuffer * 0.6 * 10) / 10,
-      averageWaitingTime: Math.round(params.MeanProcessingTime * 2), // seconds
-      blockingTime: Math.round(Math.random() * 5 + 2), // percentage
-      starvationTime: Math.round(Math.random() * 4 + 1), // percentage
+      averageWIP: Math.round(optimalBuffer * 0.6 * wipVariation * 10) / 10,
+      averageWaitingTime: Math.round(params.MeanProcessingTime * 2 * waitingTimeVariation), // seconds
+      blockingTime: Math.round(Math.random() * 5 + 2), // percentage (2-7%)
+      starvationTime: Math.round(Math.random() * 4 + 1), // percentage (1-5%)
     },
     explanation: `With a buffer size of ${optimalBuffer} units and processing time range of ${params.MinProcessingTime}-${params.MaxProcessingTime} minutes (mean: ${params.MeanProcessingTime} min), the system balances machine utilization and WIP effectively. The parent buffer capacity (${params.ParentInputBufferCapacity}) and member buffer capacity (${params.MemberInputBufferCapacity}) maintain ${Math.round(optimalResult.utilization * 100)}% utilization with optimal flow.`,
   };

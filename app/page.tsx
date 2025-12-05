@@ -26,13 +26,22 @@ export default function LandingPage() {
       <div className="landing-header-spacer"></div>
       <div className="landing-hero">
         <h1 className="landing-title">
-          Make Discrete Event Simulation feel simple, powerful, and sustainable
+        Imagine that a decision as simple as choosing how many parts to store can change the climate footprint of an entire factory
         </h1>
-        <p className="landing-tagline">
-          Imagine that a decision as simple as choosing how many parts to store can change the climate footprint of an entire factory.
-        </p>
         
         <div className="hero-visual">
+          <div className="hero-problem-statement">
+            <h2 className="problem-title">The problem:</h2>
+            <p className="problem-lead">Factories waste energy, time, and resources.</p>
+            <p className="problem-lead">Not because of mechanical failures... but because machines WAIT.</p>
+            <p className="problem-lead">Each wait produces:</p>
+            <ul className="problem-list">
+              <li>Wasted energy</li>
+              <li>Wasted material</li>
+              <li>Unnecessary CO₂</li>
+              <li>Higher operating costs</li>
+            </ul>
+          </div>
           <svg viewBox="0 0 800 200" className="hero-svg">
             {/* Production Line with Buffers */}
             <defs>
@@ -138,9 +147,100 @@ export default function LandingPage() {
             </g>
           </svg>
         </div>
-        
+
+        <div className="hero-visual">
+          <div className="hero-problem-statement">
+            <h2 className="problem-title">La pregunta clave:</h2>
+            <p className="problem-lead">¿Cuál es el tamaño ÓPTIMO del buffer
+para minimizar CO₂, energía y esperas,
+y maximizar productividad?.</p>
+          </div>
+        </div>
+
+        <div className="hero-visual">
+          <div className="hero-problem-statement">
+            <h2 className="problem-title">¿Por qué es importante el tamaño del buffer?</h2>
+            <p className="problem-lead">
+              Imagina una pequeña fábrica de cerveza:<br/>
+              <strong>Máquina 1</strong> llena las botellas de cerveza.<br/>
+              <strong>Máquina 2</strong> pone el tapón a cada botella.<br/>
+              Entre ambas, existe un <strong>buffer</strong>: una bandeja donde se acumulan tapones extra.
+            </p>
+            <p className="problem-lead">
+              <strong>¿Qué pasa si el buffer es demasiado pequeño?</strong><br />
+              La máquina de tapones tendrá que parar y esperar, perdiendo productividad.<br/>
+              <strong>¿Y si es muy grande?</strong> <br />
+              Gastamos espacio, energía y materiales innecesarios.
+            </p>
+            <p className="problem-lead">
+              <em>¡El reto está en encontrar el <strong>tamaño óptimo</strong> del buffer!</em>
+            </p>
+          </div>
+          <svg
+            className="buffer-diagram"
+            viewBox="0 0 600 135"
+            width="100%"
+            height="auto"
+            style={{ marginTop: "1rem", marginBottom: "1rem" }}
+            aria-label="Ejemplo visual de dos máquinas y un buffer"
+          >
+            {/* Máquina 1: Llenado */}
+            <rect x="20" y="40" width="100" height="60" rx="14" fill="#60a5fa" />
+            <text x="70" y="62" fill="#fff" fontSize="15" textAnchor="middle" fontWeight="bold">Máquina 1</text>
+            <text x="70" y="83" fill="#dbeafe" fontSize="12" textAnchor="middle">Llenar cerveza</text>
+
+            {/* Flecha hacia buffer */}
+            <polygon points="125,70 150,70 150,65 165,75 150,85 150,80 125,80" fill="#a7f3d0" />
+            <text x="143" y="60" fill="#38bdf8" fontSize="13" textAnchor="middle">↠</text>
+            
+            {/* Buffer de Tapones */}
+            <rect x="170" y="55" width="80" height="35" rx="8" fill="#fef3c7" stroke="#fde68a" strokeWidth="2" opacity="0.95"/>
+            <text x="210" y="77" fill="#ca8a04" fontSize="14" textAnchor="middle" fontWeight="bold">Buffer</text>
+            {/* Tapones en el buffer */}
+            {[0, 1, 2, 3, 4].map(i => (
+              <circle
+                key={i}
+                cx={180 + i*15}
+                cy={95}
+                r="7"
+                fill="#fbbf24"
+                stroke="#eab308"
+                strokeWidth="1"
+                opacity={i < 4 ? 1 : 0.4} // simula que hay espacio para más tapones
+              />
+            ))}
+
+            {/* Flecha hacia máquina 2 */}
+            <polygon points="255,70 280,70 280,65 295,75 280,85 280,80 255,80" fill="#a7f3d0" />
+            <text x="268" y="60" fill="#38bdf8" fontSize="13" textAnchor="middle">↠</text>
+
+            {/* Máquina 2: Poner tapón */}
+            <rect x="300" y="40" width="110" height="60" rx="14" fill="#34d399" />
+            <text x="355" y="62" fill="#fff" fontSize="15" textAnchor="middle" fontWeight="bold">Máquina 2</text>
+            <text x="355" y="83" fill="#d1fae5" fontSize="12" textAnchor="middle">Poner tapón</text>
+
+            {/* Botella tapada */}
+            <rect x="440" y="53" width="20" height="34" rx="5" fill="#a3e635" />
+            <ellipse cx="450" cy="52" rx="10" ry="7" fill="#fbbf24" stroke="#eab308" strokeWidth="1"/>
+            <text x="450" y="110" fill="#64748b" fontSize="13" textAnchor="middle">¡Listo!</text>
+          </svg>
+        </div>
+
+
+        <div className="hero-visual">
+          <div className="hero-problem-statement">
+            <h2 className="problem-title">Presentamos: EcoBuffer</h2>
+            <p className="problem-lead">El buffer ideal se encuentra con simulaciones hechas con software SED</p>
+            <p className="problem-lead">Gracias a la IA generativa, EcoBuffer facilita su uso y lo hace accesible para todos</p>
+            <p className="problem-lead">Pompt en lenguaje natural</p>
+            <p className="problem-lead">Generación de parámetros y escenarios</p>
+            <p className="problem-lead">Simulación y Optmización</p>
+          </div>
+        </div>
+
+
         <p className="landing-intro">
-          Meet <strong>EcoBuffer</strong>, the first discrete event simulation companion focused on{' '}
+          <strong>EcoBuffer</strong>, the first discrete event simulation companion focused on{' '}
           <strong>buffer optimization</strong>, <strong>energy efficiency</strong>, and{' '}
           <strong>real environmental impact</strong>.
         </p>

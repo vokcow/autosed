@@ -3,24 +3,24 @@
    ============================================================================ */
 
 :root {
-  /* Colors - Industrial but chill palette */
-  --bg-primary: #0a0e1a;
-  --bg-secondary: #141925;
-  --bg-card: #1e2535;
-  --bg-hover: #252d3f;
+  /* Colors - Industrial but chill palette (Light Mode) */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-card: #f1f3f5;
+  --bg-hover: #e9ecef;
   
-  --text-primary: #e8eaed;
-  --text-secondary: #9aa0b0;
-  --text-muted: #6b7280;
+  --text-primary: #1a1d26;
+  --text-secondary: #495057;
+  --text-muted: #868e96;
   
-  --accent-teal: #14b8a6;
-  --accent-lime: #84cc16;
-  --accent-orange: #f97316;
-  --accent-blue: #3b82f6;
+  --accent-teal: #0d9488;
+  --accent-lime: #65a30d;
+  --accent-orange: #ea580c;
+  --accent-blue: #2563eb;
   
-  --border-color: #2d3548;
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  --border-color: #dee2e6;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.06);
   
   --border-radius: 12px;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -808,12 +808,12 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  background: rgba(10, 14, 26, 0.95);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border-color);
   z-index: 1000;
   padding: 1rem 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   transition: all 0.3s ease;
 }
 
@@ -898,7 +898,7 @@ body {
 }
 
 .landing-title {
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 1.5rem;
@@ -935,6 +935,44 @@ body {
   background: var(--bg-card);
   border-radius: var(--border-radius);
   max-width: 900px;
+}
+
+.hero-problem-statement {
+  background: #fef2f2;
+  border-left: 6px solid #dc2626;
+  border-radius: 8px;
+  padding: 2rem 2.5rem;
+  margin-bottom: 3rem;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.15);
+}
+
+.problem-title {
+  padding-top: -4px;
+  padding-bottom: 1rem;
+  color: #1f2937;
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.problem-lead {
+  font-size: 1.35rem;
+  line-height: 1.8;
+  color: #374151;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.problem-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0 2rem;
+}
+
+.problem-list li {
+  font-size: 1.3rem;
+  line-height: 2;
+  color: #dc2626;
+  font-weight: 600;
 }
 
 .hero-svg {
@@ -1035,11 +1073,11 @@ body {
 }
 
 .comparison-side.bad {
-  border-color: #991b1b;
+  border-color: #dc2626;
 }
 
 .comparison-side.good {
-  border-color: #065f46;
+  border-color: #059669;
 }
 
 .comparison-side:hover {
@@ -1476,6 +1514,29 @@ body {
 
   .landing-header-spacer {
     height: 70px;
+  }
+
+  .hero-problem-statement {
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .problem-title {
+    font-size: 1.35rem;
+  }
+
+  .problem-lead {
+    font-size: 1.1rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .problem-list {
+    margin: 1.25rem 0 0 1.5rem;
+  }
+
+  .problem-list li {
+    font-size: 1.1rem;
+    line-height: 1.8;
   }
 }
 
