@@ -240,7 +240,7 @@ export default function LandingPage() {
 
         <div className="hero-visual">
             <h2 className="problem-title">Introducing: EcoBuffer</h2>
-            <p className="problem-lead">The <strong>ideal buffer</strong> is found through simulations done with <strong>SED software</strong></p>
+            <p className="problem-lead">The <strong>ideal buffer</strong> is found through simulations done with <strong>DES software</strong></p>
             <p className="problem-lead">Thanks to <strong>generative AI</strong>, EcoBuffer makes it easy to use and <strong>accessible for everyone</strong></p>
             <p className="problem-lead">Natural language prompt</p>
             <p className="problem-lead">Parameter and scenario generation</p>
