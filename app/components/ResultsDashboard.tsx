@@ -11,8 +11,38 @@ export default function ResultsDashboard({ results }: ResultsDashboardProps) {
 
   return (
     <div className="results-dashboard">
-      <div className="results-header">
+      <div className="results-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h2>Simulation Results</h2>
+        <a 
+          href="/template.xml" 
+          download="template.xml"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            color: 'var(--accent-teal)',
+            textDecoration: 'none',
+            fontSize: '0.9rem',
+            fontWeight: 600,
+            padding: '0.5rem 1rem',
+            border: '1px solid var(--accent-teal)',
+            borderRadius: '8px',
+            transition: 'all 0.3s ease',
+            cursor: 'pointer',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(20, 184, 166, 0.1)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'transparent';
+          }}
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 2 L8 10 M4 8 L8 12 L12 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M2 14 L14 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+          </svg>
+          Download Template
+        </a>
       </div>
 
       {/* Summary Cards */}

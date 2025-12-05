@@ -232,9 +232,32 @@ y maximizar productividad?.</p>
             <h2 className="problem-title">Presentamos: EcoBuffer</h2>
             <p className="problem-lead">El buffer ideal se encuentra con simulaciones hechas con software SED</p>
             <p className="problem-lead">Gracias a la IA generativa, EcoBuffer facilita su uso y lo hace accesible para todos</p>
-            <p className="problem-lead">Pompt en lenguaje natural</p>
+            <p className="problem-lead">Prompt en lenguaje natural</p>
             <p className="problem-lead">Generación de parámetros y escenarios</p>
             <p className="problem-lead">Simulación y Optmización</p>
+          </div>
+        </div>
+
+        <div className="hero-visual">
+          <div className="hero-problem-statement">
+            <h2 className="problem-title">Resultados esperados</h2>
+            <ul className="problem-list">
+              <li>Reducción drástica de tiempos muertos.</li>
+              <li>Menor consumo de energía.</li>
+              <li>Eliminación de sobreproducción.</li>
+              <li>Disminución de emisiones.</li>
+              <li>Operación más estable y predecible.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="hero-visual">
+          <div className="hero-problem-statement">
+            <h2 className="problem-title">Impacto ambiental y económico </h2>
+            <ul className="problem-list">
+              <li>Alinea la producción con objetivos de sostenibilidad.</li>
+              <li>Menos CO₂ → Menos costes energéticos → Más competitividad.</li>
+            </ul>
           </div>
         </div>
 
