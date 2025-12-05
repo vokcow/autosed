@@ -231,8 +231,8 @@ export default function LandingPage() {
         <div className="hero-visual">
           <div className="hero-problem-statement">
             <h2 className="problem-title">Introducing: EcoBuffer</h2>
-            <p className="problem-lead">The ideal buffer is found through simulations done with SED software</p>
-            <p className="problem-lead">Thanks to generative AI, EcoBuffer makes it easy to use and accessible for everyone</p>
+            <p className="problem-lead">The <strong>ideal buffer</strong> is found through simulations done with <strong>SED software</strong></p>
+            <p className="problem-lead">Thanks to <strong>generative AI</strong>, EcoBuffer makes it easy to use and <strong>accessible for everyone</strong></p>
             <p className="problem-lead">Natural language prompt</p>
             <p className="problem-lead">Parameter and scenario generation</p>
             <p className="problem-lead">Simulation and optimization</p>
@@ -242,23 +242,19 @@ export default function LandingPage() {
         <div className="hero-visual">
           <div className="hero-problem-statement">
             <h2 className="problem-title">Expected Outcomes</h2>
-            <ul className="problem-list">
-              <li>Drastic reduction in downtime.</li>
-              <li>Lower energy consumption.</li>
-              <li>Elimination of overproduction.</li>
-              <li>Reduction in emissions.</li>
-              <li>More stable and predictable operations.</li>
-            </ul>
+            <p className="problem-lead"><strong>Drastic reduction</strong> in downtime.</p>
+            <p className="problem-lead"><strong>Lower energy consumption</strong>.</p>
+            <p className="problem-lead"><strong>Elimination</strong> of overproduction.</p>
+            <p className="problem-lead"><strong>Reduction</strong> in emissions.</p>
+            <p className="problem-lead">More <strong>stable</strong> and <strong>predictable operations</strong>.</p>
           </div>
         </div>
 
         <div className="hero-visual">
           <div className="hero-problem-statement">
             <h2 className="problem-title">Environmental and Economic Impact</h2>
-            <ul className="problem-list">
-              <li>Aligns production with sustainability goals.</li>
-              <li>Less CO₂ → Lower energy costs → Increased competitiveness.</li>
-            </ul>
+            <p className="problem-lead"><strong>Aligns production</strong> with sustainability goals.</p>
+            <p className="problem-lead"><strong>Less CO₂</strong> &rarr; <strong>Lower energy costs</strong> &rarr; <strong>Increased competitiveness</strong>.</p>
           </div>
         </div>
 
