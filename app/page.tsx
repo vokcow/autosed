@@ -30,19 +30,7 @@ export default function LandingPage() {
         </h1>
         
         <div className="hero-visual">
-          <div className="hero-problem-statement">
-            {/* <h2 className="problem-title">The problem:</h2> */}
-            <p className="problem-lead">Factories waste energy, time, and resources.</p>
-            <p className="problem-lead">Not because of mechanical failures... but because machines WAIT.</p>
-            <p className="problem-lead">Each wait produces:</p>
-            <ul className="problem-list">
-              <li>Wasted energy</li>
-              <li>Wasted material</li>
-              <li>Unnecessary CO₂</li>
-              <li>Higher operating costs</li>
-            </ul>
-          </div>
-          <svg viewBox="0 0 800 200" className="hero-svg">
+        <svg viewBox="0 0 800 200" className="hero-svg">
             {/* Production Line with Buffers */}
             <defs>
               <linearGradient id="flow-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -146,6 +134,12 @@ export default function LandingPage() {
               <text x="690" y="194" textAnchor="middle" fill="#9aa0b0" fontSize="28">Savings</text>
             </g>
           </svg>
+
+          <div className="hero-problem-statement">
+            {/* <h2 className="problem-title">The problem:</h2> */}
+            <p className="problem-lead">Factories waste energy, time, resources, produce unnecessary CO₂ emissions and have higher costs.</p>
+            <p className="problem-lead">Not because of mechanical failures... but because machines WAIT.</p>
+          </div>
         </div>
 
         <div className="hero-visual">
