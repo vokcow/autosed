@@ -31,7 +31,7 @@ export default function LandingPage() {
         
         <div className="hero-visual">
           <div className="hero-problem-statement">
-            <h2 className="problem-title">The problem:</h2>
+            {/* <h2 className="problem-title">The problem:</h2> */}
             <p className="problem-lead">Factories waste energy, time, and resources.</p>
             <p className="problem-lead">Not because of mechanical failures... but because machines WAIT.</p>
             <p className="problem-lead">Each wait produces:</p>
@@ -158,54 +158,18 @@ export default function LandingPage() {
 
         <div className="hero-visual">
             <h2 className="problem-title">Why does buffer size matter?</h2>
-            <svg
-            className="buffer-diagram"
-            viewBox="0 0 600 135"
-            width="100%"
-            height="auto"
-            style={{ marginTop: "1rem", marginBottom: "1rem" }}
-            aria-label="Visual example of two machines and a buffer"
-          >
-            {/* Machine 1: Filling */}
-            <rect x="20" y="40" width="100" height="60" rx="14" fill="#60a5fa" />
-            <text x="70" y="62" fill="#fff" fontSize="15" textAnchor="middle" fontWeight="bold">Machine 1</text>
-            <text x="70" y="83" fill="#dbeafe" fontSize="12" textAnchor="middle">Fill beer</text>
-
-            {/* Arrow to buffer */}
-            <polygon points="125,70 150,70 150,65 165,75 150,85 150,80 125,80" fill="#a7f3d0" />
-            <text x="143" y="60" fill="#38bdf8" fontSize="13" textAnchor="middle">↠</text>
-            
-            {/* Cap Buffer */}
-            <rect x="170" y="55" width="80" height="35" rx="8" fill="#fef3c7" stroke="#fde68a" strokeWidth="2" opacity="0.95"/>
-            <text x="210" y="77" fill="#ca8a04" fontSize="14" textAnchor="middle" fontWeight="bold">Buffer</text>
-            {/* Caps in the buffer */}
-            {[0, 1, 2, 3, 4].map(i => (
-              <circle
-                key={i}
-                cx={180 + i*15}
-                cy={95}
-                r="7"
-                fill="#fbbf24"
-                stroke="#eab308"
-                strokeWidth="1"
-                opacity={i < 4 ? 1 : 0.4} // simulates extra space for more caps
-              />
-            ))}
-
-            {/* Arrow to machine 2 */}
-            <polygon points="255,70 280,70 280,65 295,75 280,85 280,80 255,80" fill="#a7f3d0" />
-            <text x="268" y="60" fill="#38bdf8" fontSize="13" textAnchor="middle">↠</text>
-
-            {/* Machine 2: Capping */}
-            <rect x="300" y="40" width="110" height="60" rx="14" fill="#34d399" />
-            <text x="355" y="62" fill="#fff" fontSize="15" textAnchor="middle" fontWeight="bold">Machine 2</text>
-            <text x="355" y="83" fill="#d1fae5" fontSize="12" textAnchor="middle">Put cap</text>
-
-            {/* Bottled (capped) */}
-            <rect x="440" y="53" width="20" height="34" rx="5" fill="#a3e635" />
-            <ellipse cx="450" cy="52" rx="10" ry="7" fill="#fbbf24" stroke="#eab308" strokeWidth="1"/>
-            <text x="450" y="110" fill="#64748b" fontSize="13" textAnchor="middle">Done!</text>
-          </svg>
+            <img
+              src="public/pipeline.png"
+              alt="Visual example of two machines and a buffer"
+              style={{
+                width: "100%",
+                height: "auto",
+                marginTop: "1rem",
+                marginBottom: "1rem",
+                borderRadius: "10px",
+                boxShadow: "0 2px 10px rgba(0,0,0,0.08)"
+              }}
+            />
             <p className="problem-lead">
               Imagine a small brewery:<br/>
               <strong>Machine 1</strong> fills the beer bottles.<br/>
@@ -226,7 +190,7 @@ export default function LandingPage() {
 
         <div className="hero-visual">
             <h2 className="problem-title">Introducing: EcoBuffer</h2>
-            <p className="problem-lead">The <strong>ideal buffer</strong> is found through simulations done with <strong>DES software</strong></p>
+            <p className="problem-lead">The <strong>ideal buffer</strong> is found through simulations done with <strong>SED software</strong></p>
             <p className="problem-lead">Thanks to <strong>generative AI</strong>, EcoBuffer makes it easy to use and <strong>accessible for everyone</strong></p>
             <p className="problem-lead">Natural language prompt</p>
             <p className="problem-lead">Parameter and scenario generation</p>
