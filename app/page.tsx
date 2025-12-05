@@ -226,7 +226,7 @@ export default function LandingPage() {
 
         <div className="hero-visual">
             <h2 className="problem-title">Introducing: EcoBuffer</h2>
-            <p className="problem-lead">The <strong>ideal buffer</strong> is found through simulations done with <strong>SED software</strong></p>
+            <p className="problem-lead">The <strong>ideal buffer</strong> is found through simulations done with <strong>DES software</strong></p>
             <p className="problem-lead">Thanks to <strong>generative AI</strong>, EcoBuffer makes it easy to use and <strong>accessible for everyone</strong></p>
             <p className="problem-lead">Natural language prompt</p>
             <p className="problem-lead">Parameter and scenario generation</p>
@@ -263,75 +263,74 @@ export default function LandingPage() {
           <svg viewBox="0 0 900 280" className="integration-svg">
             {/* User creating prompt */}
             <g>
-              <text x="90" y="25" textAnchor="middle" fill="#9aa0b0" fontSize="14" fontWeight="bold">User Input</text>
+              <text x="90" y="25" textAnchor="middle" fill="#222" fontSize="28" fontWeight="bold" style={{letterSpacing: "0.1em"}}>User Input</text>
               
               {/* User icon */}
-              <circle cx="90" cy="100" r="35" fill="#1e2535" stroke="#8b5cf6" strokeWidth="3"/>
-              <circle cx="90" cy="90" r="12" fill="#8b5cf6"/>
-              <path d="M 65 115 Q 65 105 90 105 Q 115 105 115 115 L 115 125 Q 115 130 90 130 Q 65 130 65 125 Z" fill="#8b5cf6"/>
+              <circle cx="90" cy="100" r="35" fill="#f3faf7" stroke="#a7f3d0" strokeWidth="3"/>
+              <circle cx="90" cy="90" r="12" fill="#a7f3d0"/>
+              <path d="M 65 115 Q 65 105 90 105 Q 115 105 115 115 L 115 125 Q 115 130 90 130 Q 65 130 65 125 Z" fill="#a7f3d0"/>
               
               {/* Prompt bubble */}
-              <rect x="30" y="150" width="120" height="60" fill="#1e2535" stroke="#8b5cf6" strokeWidth="2" rx="8"/>
-              <text x="90" y="172" textAnchor="middle" fill="#c4b5fd" fontSize="11" fontWeight="bold">💬 Natural</text>
-              <text x="90" y="188" textAnchor="middle" fill="#c4b5fd" fontSize="11" fontWeight="bold">Language</text>
-              <text x="90" y="204" textAnchor="middle" fill="#9aa0b0" fontSize="9">"Optimize buffers..."</text>
+              <rect x="30" y="150" width="120" height="60" fill="#e0f2fe" stroke="#38bdf8" strokeWidth="2" rx="10"/>
+              <text x="90" y="172" textAnchor="middle" fill="#0284c7" fontSize="18" fontWeight="bold">💬 Natural</text>
+              <text x="90" y="195" textAnchor="middle" fill="#0284c7" fontSize="18" fontWeight="bold">Language</text>
+              <text x="90" y="215" textAnchor="middle" fill="#065f46" fontSize="14" fontWeight="bold">"Optimize buffers..."</text>
             </g>
             
             {/* EcoBuffer Core with AI */}
             <g>
-              <rect x="300" y="60" width="300" height="160" fill="#065f46" stroke="#14b8a6" strokeWidth="4" rx="12"/>
+              <rect x="300" y="60" width="300" height="170" fill="#d1fae5" stroke="#22d3ee" strokeWidth="4" rx="18"/>
               
-              <text x="450" y="100" textAnchor="middle" fill="#6ee7b7" fontSize="24" fontWeight="bold">EcoBuffer AI</text>
-              <text x="450" y="125" textAnchor="middle" fill="#9aa0b0" fontSize="13">Buffer Optimization Engine</text>
-              <text x="450" y="145" textAnchor="middle" fill="#14b8a6" fontSize="11">🤖 AI-Powered Analysis</text>
-              <text x="450" y="165" textAnchor="middle" fill="#14b8a6" fontSize="11">⚡ Energy & CO₂ Tracking</text>
-              <text x="450" y="185" textAnchor="middle" fill="#84cc16" fontSize="11">📈 Real-time KPIs</text>
-              <text x="450" y="205" textAnchor="middle" fill="#c4b5fd" fontSize="11">🎯 Smart Recommendations</text>
+              <text x="450" y="100" textAnchor="middle" fill="#222" fontSize="36" fontWeight="bold">EcoBuffer AI</text>
+              <text x="450" y="135" textAnchor="middle" fill="#222" fontSize="22" fontWeight="bold">Buffer Optimization Engine</text>
+              <text x="450" y="160" textAnchor="middle" fill="#065f46" fontSize="18" fontWeight="bold">🤖 AI-Powered Analysis</text>
+              <text x="450" y="185" textAnchor="middle" fill="#065f46" fontSize="18" fontWeight="bold">⚡ Energy & CO₂ Tracking</text>
+              <text x="450" y="210" textAnchor="middle" fill="#22c55e" fontSize="18" fontWeight="bold">📈 Real-time KPIs</text>
             </g>
             
             {/* Data Sources & DES Software */}
             <g>
-              <text x="780" y="25" textAnchor="middle" fill="#9aa0b0" fontSize="14" fontWeight="bold">Data & Simulation</text>
+              <text x="780" y="25" textAnchor="middle" fill="#222" fontSize="28" fontWeight="bold" style={{letterSpacing: "0.05em"}}>Data & Simulation</text>
               
               {/* Data Sources */}
-              <rect x="710" y="45" width="140" height="35" fill="#1e2535" stroke="#3b82f6" strokeWidth="2" rx="6"/>
-              <text x="780" y="67" textAnchor="middle" fill="#3b82f6" fontSize="11" fontWeight="bold">📄 CSV / SQL / API</text>
+              <rect x="710" y="45" width="140" height="40" fill="#f3f7fd" stroke="#60a5fa" strokeWidth="2" rx="10"/>
+              <text x="780" y="72" textAnchor="middle" fill="#2563eb" fontSize="18" fontWeight="bold">📄 CSV / SQL / API</text>
               
               {/* Arrow to DES */}
-              <path d="M 780 80 L 780 95" stroke="#9aa0b0" strokeWidth="2" strokeDasharray="4"/>
+              <path d="M 780 85 L 780 105" stroke="#475569" strokeWidth="3" strokeDasharray="4"/>
               
               {/* DES Software */}
-              <text x="780" y="110" textAnchor="middle" fill="#9aa0b0" fontSize="12" fontWeight="bold">↓ DES Engines</text>
+              <text x="780" y="123" textAnchor="middle" fill="#222" fontSize="18" fontWeight="bold">↓ DES Engines</text>
               
-              <rect x="710" y="120" width="140" height="35" fill="#1e2535" stroke="#f59e0b" strokeWidth="2" rx="6"/>
-              <text x="780" y="142" textAnchor="middle" fill="#f59e0b" fontSize="11" fontWeight="bold">Simio</text>
+              <rect x="710" y="135" width="140" height="35" fill="#fef9c3" stroke="#fde68a" strokeWidth="2" rx="8"/>
+              <text x="780" y="158" textAnchor="middle" fill="#a16207" fontSize="16" fontWeight="bold">Simio</text>
               
-              <rect x="710" y="165" width="140" height="35" fill="#1e2535" stroke="#f59e0b" strokeWidth="2" rx="6"/>
-              <text x="780" y="187" textAnchor="middle" fill="#f59e0b" fontSize="11" fontWeight="bold">JaamSim</text>
+              <rect x="710" y="180" width="140" height="35" fill="#fef9c3" stroke="#fde68a" strokeWidth="2" rx="8"/>
+              <text x="780" y="203" textAnchor="middle" fill="#a16207" fontSize="16" fontWeight="bold">JaamSim</text>
               
-              <rect x="710" y="210" width="140" height="35" fill="#1e2535" stroke="#f59e0b" strokeWidth="2" rx="6"/>
-              <text x="780" y="232" textAnchor="middle" fill="#f59e0b" fontSize="11" fontWeight="bold">Simul8 / Witness</text>
+              <rect x="710" y="225" width="140" height="35" fill="#fef9c3" stroke="#fde68a" strokeWidth="2" rx="8"/>
+              <text x="780" y="248" textAnchor="middle" fill="#a16207" fontSize="16" fontWeight="bold">Simul8 / Witness</text>
             </g>
             
             {/* Arrows */}
             <defs>
               <marker id="arrow-purple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                <path d="M0,0 L0,6 L9,3 z" fill="#8b5cf6" />
+                <path d="M0,0 L0,6 L9,3 z" fill="#a855f7" />
               </marker>
               <marker id="arrow-teal" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
                 <path d="M0,0 L0,6 L9,3 z" fill="#14b8a6" />
               </marker>
               <marker id="arrow-orange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                <path d="M0,0 L0,6 L9,3 z" fill="#f59e0b" />
+                <path d="M0,0 L0,6 L9,3 z" fill="#fbbf24" />
               </marker>
             </defs>
             
             {/* User to EcoBuffer */}
-            <path d="M 125 100 L 300 130" stroke="#8b5cf6" strokeWidth="3" markerEnd="url(#arrow-purple)"/>
-            <path d="M 150 180 L 300 160" stroke="#8b5cf6" strokeWidth="3" markerEnd="url(#arrow-purple)"/>
+            <path d="M 125 100 L 300 130" stroke="#a855f7" strokeWidth="4" markerEnd="url(#arrow-purple)"/>
+            <path d="M 150 190 L 300 170" stroke="#a855f7" strokeWidth="4" markerEnd="url(#arrow-purple)"/>
             
             {/* EcoBuffer to CSV/SQL/API */}
-            <path d="M 600 100 L 710 62" stroke="#14b8a6" strokeWidth="3" markerEnd="url(#arrow-teal)"/>
+            <path d="M 600 110 L 710 62" stroke="#14b8a6" strokeWidth="4" markerEnd="url(#arrow-teal)"/>
           </svg>
         </div>
         
