@@ -149,35 +149,16 @@ export default function LandingPage() {
         </div>
 
         <div className="hero-visual">
-          <div className="hero-problem-statement">
             <h2 className="problem-title">The key question:</h2>
             <p className="problem-lead">
               What is the OPTIMAL buffer size to minimize CO₂, energy, and waiting time,<br />
               and maximize productivity?
             </p>
-          </div>
         </div>
 
         <div className="hero-visual">
-          <div className="hero-problem-statement">
             <h2 className="problem-title">Why does buffer size matter?</h2>
-            <p className="problem-lead">
-              Imagine a small brewery:<br/>
-              <strong>Machine 1</strong> fills the beer bottles.<br/>
-              <strong>Machine 2</strong> puts a cap on each bottle.<br/>
-              Between them, there’s a <strong>buffer</strong>: a tray where extra caps are stored.
-            </p>
-            <p className="problem-lead">
-              <strong>What happens if the buffer is too small?</strong><br />
-              The capping machine will have to stop and wait, losing productivity.<br/>
-              <strong>And if it’s too big?</strong><br />
-              We waste space, energy, and unnecessary materials.
-            </p>
-            <p className="problem-lead">
-              <em>The challenge is to find the <strong>optimal buffer size</strong>!</em>
-            </p>
-          </div>
-          <svg
+            <svg
             className="buffer-diagram"
             viewBox="0 0 600 135"
             width="100%"
@@ -225,37 +206,46 @@ export default function LandingPage() {
             <ellipse cx="450" cy="52" rx="10" ry="7" fill="#fbbf24" stroke="#eab308" strokeWidth="1"/>
             <text x="450" y="110" fill="#64748b" fontSize="13" textAnchor="middle">Done!</text>
           </svg>
-        </div>
+            <p className="problem-lead">
+              Imagine a small brewery:<br/>
+              <strong>Machine 1</strong> fills the beer bottles.<br/>
+              <strong>Machine 2</strong> puts a cap on each bottle.<br/>
+              Between them, there’s a <strong>buffer</strong>: a tray where extra caps are stored.
+            </p>
+            <p className="problem-lead">
+              <strong>What happens if the buffer is too small?</strong><br />
+              The capping machine will have to stop and wait, losing productivity.<br/>
+              <strong>And if it’s too big?</strong><br />
+              We waste space, energy, and unnecessary materials.
+            </p>
+            <p className="problem-lead">
+              <em>The challenge is to find the <strong>optimal buffer size</strong>!</em>
+            </p>
+          </div>
 
 
         <div className="hero-visual">
-          <div className="hero-problem-statement">
             <h2 className="problem-title">Introducing: EcoBuffer</h2>
             <p className="problem-lead">The <strong>ideal buffer</strong> is found through simulations done with <strong>SED software</strong></p>
             <p className="problem-lead">Thanks to <strong>generative AI</strong>, EcoBuffer makes it easy to use and <strong>accessible for everyone</strong></p>
             <p className="problem-lead">Natural language prompt</p>
             <p className="problem-lead">Parameter and scenario generation</p>
             <p className="problem-lead">Simulation and optimization</p>
-          </div>
         </div>
 
         <div className="hero-visual">
-          <div className="hero-problem-statement">
             <h2 className="problem-title">Expected Outcomes</h2>
             <p className="problem-lead"><strong>Drastic reduction</strong> in downtime.</p>
             <p className="problem-lead"><strong>Lower energy consumption</strong>.</p>
             <p className="problem-lead"><strong>Elimination</strong> of overproduction.</p>
             <p className="problem-lead"><strong>Reduction</strong> in emissions.</p>
             <p className="problem-lead">More <strong>stable</strong> and <strong>predictable operations</strong>.</p>
-          </div>
         </div>
 
         <div className="hero-visual">
-          <div className="hero-problem-statement">
             <h2 className="problem-title">Environmental and Economic Impact</h2>
             <p className="problem-lead"><strong>Aligns production</strong> with sustainability goals.</p>
             <p className="problem-lead"><strong>Less CO₂</strong> &rarr; <strong>Lower energy costs</strong> &rarr; <strong>Increased competitiveness</strong>.</p>
-          </div>
         </div>
 
         <p className="landing-intro">
@@ -355,45 +345,6 @@ export default function LandingPage() {
           No coding required. Just describe what you want to optimize, and let EcoBuffer handle the complexity.
         </p>
       </section>
-
-      <section className="landing-section">
-        <h2>Who is using EcoBuffer?</h2>
-        <div className="landing-testimonials">
-          <div className="testimonial-card">
-            <h3>GreenPress Components</h3>
-            <p className="testimonial-subtitle">Automotive Tier 1 supplier</p>
-            <p className="testimonial-quote">
-              "With EcoBuffer we reduced WIP buffers by 22% while keeping service level above 98%, 
-              freeing capital and stabilizing the line."
-            </p>
-          </div>
-          <div className="testimonial-card">
-            <h3>BlueWave Appliances</h3>
-            <p className="testimonial-subtitle">Consumer goods factory network</p>
-            <p className="testimonial-quote">
-              "Optimizing decoupling buffers across three plants gave us a 9% throughput increase 
-              and a measurable CO₂ reduction per unit."
-            </p>
-          </div>
-          <div className="testimonial-card">
-            <h3>NordicRail Logistics</h3>
-            <p className="testimonial-subtitle">Intermodal transport operator</p>
-            <p className="testimonial-quote">
-              "Scenario testing helped right-size yard buffers and cut unproductive moves, 
-              improving on-time performance and energy use."
-            </p>
-          </div>
-          <div className="testimonial-card">
-            <h3>SunCore Foods</h3>
-            <p className="testimonial-subtitle">Beverage and packaging producer</p>
-            <p className="testimonial-quote">
-              "In less than a month we identified where small buffer changes could save energy without hurting output."
-            </p>
-          </div>
-        </div>
-        <p className="landing-note">*(All client names and quotes above are illustrative.)*</p>
-      </section>
-
 
       <section className="landing-section">
         <h2>Why buffers matter more than you think</h2>
